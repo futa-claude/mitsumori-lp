@@ -1,0 +1,9 @@
+<svg width="300" height="84" viewBox="0 0 300 84" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="運送見積">
+  <title>運送見積</title>
+  <rect x="8" y="10" width="64" height="64" rx="15" fill="#FFC400"/>
+  <rect x="20" y="32" width="29" height="17" rx="2" fill="#16181D"/>
+  <path d="M49 49 V36 H57 L63 42 V49 Z" fill="#16181D"/>
+  <circle cx="29" cy="52" r="5.5" fill="#16181D"/><circle cx="29" cy="52" r="2.2" fill="#FFC400"/>
+  <circle cx="55" cy="52" r="5.5" fill="#16181D"/><circle cx="55" cy="52" r="2.2" fill="#FFC400"/>
+  <text x="92" y="56" font-family="'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif" font-size="38" font-weight="800" fill="#16181D" letter-spacing="2">運送見積</text>
+</svg>
