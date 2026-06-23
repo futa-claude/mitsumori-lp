@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Quotto（クオット）｜運送の自動見積システム</title>
+<title>Quotto（クオット）｜運送会社向け 見積標準化システム</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet" />
-<meta name="description" content="運送会社向けの自動見積システム。依頼文を貼る・音声で話すだけで見積書が完成。距離制・車建て・重量制に対応、会社ごとの見積書テンプレート、PC・スマホ対応。" />
-<meta property="og:title" content="Quotto（クオット）｜運送の自動見積システム" />
-<meta property="og:description" content="見積作成の3分を10秒に。依頼文を貼る・話すだけ。" />
+<meta name="description" content="運送会社向けの見積標準化システム。依頼文を貼る・話すだけで見積書が完成。誰が作っても同じ見積、自社の料金ルール（4t冷蔵・10t冷凍など）を再現、PDF即出力、顧客情報は外部送信しません。" />
+<meta property="og:title" content="Quotto（クオット）｜運送会社向け 見積標準化システム" />
+<meta property="og:description" content="運送会社の見積を、10秒で。誰が作っても同じ見積。依頼文を貼る・話すだけ。" />
 <meta property="og:type" content="website" />
+<script>document.documentElement.classList.add('js');</script>
 <style>
   :root{
     --navy:#0C3F37; --navy2:#11534A; --orange:#0E7C6B; --ink:#1c1f23; --beige:#E3D6B8;
@@ -26,21 +27,21 @@
   .wm{font-family:'Archivo Black','Arial Black',sans-serif;font-weight:400;letter-spacing:0.5px;line-height:1;display:inline-block}
   .wm .o{color:var(--orange)}
   .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-  .btn{display:inline-block;border-radius:999px;padding:14px 26px;font-weight:700;font-size:15px;border:2px solid transparent;cursor:pointer;transition:.2s}
-  .btn-primary{background:var(--orange);color:#fff}
-  .btn-primary:hover{filter:brightness(1.07);transform:translateY(-1px)}
+  .btn{display:inline-block;border-radius:999px;padding:14px 26px;font-weight:700;font-size:15px;border:2px solid transparent;cursor:pointer;transition:transform .2s,box-shadow .2s,filter .2s,background .2s}
+  .btn-primary{background:var(--orange);color:#fff;box-shadow:0 6px 18px rgba(14,124,107,.28)}
+  .btn-primary:hover{filter:brightness(1.06);transform:translateY(-2px);box-shadow:0 10px 24px rgba(14,124,107,.36)}
   .btn-ghost{background:transparent;color:var(--ink);border-color:#cfcabd}
-  .btn-ghost:hover{background:#f0ede4}
-  .btn-dark{background:var(--navy);color:#fff}
-  .btn-dark:hover{filter:brightness(1.15)}
+  .btn-ghost:hover{background:#f0ede4;transform:translateY(-1px)}
   .btn-white{background:#fff;color:var(--navy)}
-  .btn-white:hover{filter:brightness(.97)}
+  .btn-white:hover{filter:brightness(.97);transform:translateY(-2px)}
+  /* やわらかな注目アニメ（控えめ） */
+  @keyframes softpulse{0%,100%{box-shadow:0 6px 18px rgba(14,124,107,.28)}50%{box-shadow:0 8px 26px rgba(14,124,107,.45)}}
+  .btn-pulse{animation:softpulse 2.6s ease-in-out infinite}
 
   /* header */
   header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);color:var(--ink);border-bottom:1px solid var(--line)}
   header .wrap{display:flex;align-items:center;height:64px;gap:18px}
   .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:.02em}
-  .logo .mark{width:34px;height:34px;border-radius:9px;background:var(--orange);display:grid;place-items:center;font-size:18px}
   header nav{margin-left:auto;display:flex;gap:22px;align-items:center;font-size:14px}
   header nav a.lnk{opacity:.85}
   header nav a.lnk:hover{opacity:1}
@@ -51,26 +52,38 @@
   .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;padding:64px 20px 72px;align-items:center}
   @media(max-width:860px){.hero .wrap{grid-template-columns:1fr;padding:46px 20px 54px}}
   .badge{display:inline-block;background:rgba(14,124,107,.1);color:var(--orange);border:1px solid rgba(14,124,107,.3);padding:5px 13px;border-radius:999px;font-size:12.5px;font-weight:700;margin-bottom:18px}
-  .hero h1{font-size:42px;line-height:1.25;letter-spacing:.01em;margin-bottom:18px}
+  .hero h1{font-size:46px;line-height:1.22;letter-spacing:.01em;margin-bottom:18px}
   .hero h1 .hl{color:var(--orange)}
-  @media(max-width:860px){.hero h1{font-size:30px}}
+  @media(max-width:860px){.hero h1{font-size:31px}}
   .hero p.lead{font-size:17px;color:#46515c;margin-bottom:28px}
   .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
   .hero .note{margin-top:16px;font-size:12.5px;color:var(--muted)}
+  .trustline{margin-top:20px;display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+  .trustline span{display:flex;align-items:center;gap:6px}
+  .trustline b{color:var(--orange)}
 
-  /* phone mock */
+  /* phone demo */
   .mock{justify-self:center}
-  .phone{width:260px;height:520px;background:#0c151e;border-radius:34px;padding:12px;box-shadow:0 30px 70px rgba(0,0,0,.5);border:1px solid #2a3a49}
+  .phone{width:264px;height:524px;background:#0c151e;border-radius:34px;padding:12px;box-shadow:0 30px 70px rgba(0,0,0,.45);border:1px solid #2a3a49}
   .screen{background:#EEF1F4;border-radius:24px;height:100%;overflow:hidden;display:flex;flex-direction:column}
   .s-head{background:var(--navy);color:#fff;padding:14px 14px 12px}
   .s-head b{font-size:13px}
   .s-head div{font-size:9px;opacity:.7;letter-spacing:.15em}
-  .s-body{padding:12px;display:flex;flex-direction:column;gap:9px;flex:1}
-  .s-voice{background:var(--orange);color:#fff;text-align:center;border-radius:9px;padding:11px;font-weight:800;font-size:12px}
-  .s-card{background:#fff;border:1px solid #dde2e8;border-radius:9px;padding:8px 10px;font-size:10px;color:#56606b}
-  .s-card b{color:#16181D}
-  .s-total{background:var(--navy);color:#fff;border-radius:9px;padding:10px 12px;margin-top:auto;display:flex;justify-content:space-between;align-items:baseline}
-  .s-total .v{color:#fff;font-weight:800;font-size:20px;font-family:var(--mono)}
+  .s-body{padding:13px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .d-row{background:#fff;border:1px solid #dde2e8;border-radius:10px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#56606b;opacity:0;transform:translateY(8px);transition:opacity .45s,transform .45s}
+  .d-row .d-val{font-weight:800;color:#16181D}
+  .d-row.on{opacity:1;transform:none}
+  .d-chip{display:flex;gap:6px;opacity:0;transform:translateY(8px);transition:opacity .45s,transform .45s}
+  .d-chip.on{opacity:1;transform:none}
+  .d-chip span{flex:1;text-align:center;background:#fff;border:1px solid #dde2e8;border-radius:10px;padding:9px;font-size:11px;color:#56606b;font-weight:700}
+  .d-chip span.sel{background:var(--offwhite);border-color:var(--orange);color:var(--orange)}
+  .d-total{background:var(--navy);color:#fff;border-radius:10px;padding:11px 13px;display:flex;justify-content:space-between;align-items:baseline;margin-top:auto;opacity:0;transform:translateY(8px);transition:opacity .45s,transform .45s}
+  .d-total.on{opacity:1;transform:none}
+  .d-total .v{color:#fff;font-weight:800;font-size:21px;font-family:var(--mono)}
+  .d-pdf{background:var(--orange);color:#fff;text-align:center;border-radius:10px;padding:11px;font-weight:800;font-size:12px;opacity:0;transform:translateY(8px);transition:opacity .45s,transform .45s}
+  .d-pdf.on{opacity:1;transform:none}
+  .d-done{text-align:center;font-size:11px;font-weight:800;color:var(--orange);opacity:0;transition:opacity .4s}
+  .d-done.on{opacity:1}
 
   /* sections */
   section{padding:72px 0}
@@ -82,11 +95,30 @@
   .pain{background:var(--soft)}
   .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
   @media(max-width:860px){.grid3{grid-template-columns:1fr}}
-  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:transform .2s,box-shadow .2s}
+  .card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.08)}
   .pain .card{text-align:center}
   .pain .ico{font-size:30px}
   .pain .card h3{margin:12px 0 6px;font-size:18px}
   .pain .card p{color:var(--muted);font-size:14.5px}
+
+  /* before / after */
+  .ba .ba-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:22px;align-items:center;max-width:900px;margin:0 auto}
+  @media(max-width:860px){.ba .ba-grid{grid-template-columns:1fr;gap:14px}}
+  .ba-card{border-radius:16px;padding:28px 30px;transition:transform .2s,box-shadow .2s}
+  .ba-card .ba-label{font-weight:800;font-size:13px;letter-spacing:.1em;margin-bottom:16px;text-transform:uppercase}
+  .ba-card ul{list-style:none}
+  .ba-card li{padding:9px 0 9px 28px;position:relative;font-size:15px}
+  .ba-card.before{background:var(--soft);border:1px solid var(--line);color:var(--muted)}
+  .ba-card.before .ba-label{color:#9aa3ac}
+  .ba-card.before li::before{content:"✕";position:absolute;left:4px;color:#c2a6a6;font-weight:700;font-size:12px}
+  .ba-card.after{background:var(--offwhite);border:2px solid var(--orange)}
+  .ba-card.after:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(14,124,107,.18)}
+  .ba-card.after .ba-label{color:var(--orange)}
+  .ba-card.after li{font-weight:600;color:var(--ink)}
+  .ba-card.after li::before{content:"✓";position:absolute;left:0;color:var(--orange);font-weight:800}
+  .ba-arrow{font-size:32px;color:var(--orange);font-weight:800;text-align:center}
+  @media(max-width:860px){.ba-arrow{transform:rotate(90deg)}}
 
   .feat .card{display:flex;flex-direction:column;gap:10px}
   .feat .fico{width:46px;height:46px;border-radius:12px;background:var(--offwhite);display:grid;place-items:center;font-size:22px}
@@ -97,6 +129,7 @@
   .steps{background:var(--navy);color:#fff}
   .steps .grid3{gap:26px}
   .steps .card{background:var(--navy2);border-color:rgba(255,255,255,.15);color:#fff;text-align:center}
+  .steps .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.3)}
   .steps .num{width:42px;height:42px;border-radius:50%;background:var(--beige);color:var(--navy);display:grid;place-items:center;font-weight:800;margin:0 auto 14px;font-size:18px}
   .steps .card h3{font-size:17px;margin-bottom:6px}
   .steps .card p{color:#b9c5d0;font-size:14px}
@@ -107,21 +140,39 @@
   .why .row p{color:var(--muted);font-size:14.5px}
 
   .cta-band{background:linear-gradient(160deg,#0E7C6B,#0C3F37);color:#fff;text-align:center}
+  .cta-band.compact{padding:52px 0}
   .cta-band h2{font-size:30px;margin-bottom:12px}
-  @media(max-width:860px){.cta-band h2{font-size:24px}}
+  @media(max-width:860px){.cta-band h2{font-size:23px}}
   .cta-band p{margin-bottom:26px;font-size:16px;opacity:.95}
+  .cta-band .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
   .price{background:var(--soft)}
-  .price-card{max-width:520px;margin:0 auto;background:#fff;border:2px solid var(--orange);border-radius:18px;padding:34px;text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.06)}
-  .price-card .p{font-size:34px;font-weight:800;color:var(--ink)}
-  .price-card .p small{font-size:15px;color:var(--muted);font-weight:600}
-  .price-card ul{list-style:none;text-align:left;max-width:340px;margin:20px auto 26px}
+  .price-card{max-width:540px;margin:0 auto;background:#fff;border:2px solid var(--orange);border-radius:18px;padding:36px;text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.06)}
+  .price-card .p{font-size:30px;font-weight:800;color:var(--ink)}
+  .price-card .p small{display:block;font-size:14px;color:var(--muted);font-weight:600;margin-top:6px}
+  .price-card ul{list-style:none;text-align:left;max-width:340px;margin:22px auto 26px}
   .price-card li{padding:7px 0 7px 28px;position:relative;font-size:14.5px}
   .price-card li::before{content:"✓";position:absolute;left:0;color:var(--orange);font-weight:800}
+  .price-card .cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 
   footer{background:var(--navy);color:#9fb0bf;padding:40px 0;font-size:13.5px}
   footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
   footer .logo{color:#fff}
+
+  /* scroll reveal（JSがある時だけ初期非表示。落ち着いた動き） */
+  .js .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+  .js .reveal.in{opacity:1;transform:none}
+  .js .grid3 .reveal:nth-child(2){transition-delay:.09s}
+  .js .grid3 .reveal:nth-child(3){transition-delay:.18s}
+  .js .grid3 .reveal:nth-child(4){transition-delay:.09s}
+  .js .grid3 .reveal:nth-child(5){transition-delay:.18s}
+  .js .grid3 .reveal:nth-child(6){transition-delay:.27s}
+  @media(prefers-reduced-motion:reduce){
+    .js .reveal{opacity:1;transform:none;transition:none}
+    .btn-pulse{animation:none}
+    .d-row,.d-chip,.d-total,.d-pdf,.d-done{transition:none}
+    *{scroll-behavior:auto}
+  }
 </style>
 </head>
 <body>
@@ -136,7 +187,7 @@
       <a class="lnk" href="#steps">使い方</a>
       <a class="lnk" href="#why">選ばれる理由</a>
       <a class="lnk" href="#price">料金</a>
-      <a class="btn btn-primary" href="#contact">無料で相談</a>
+      <a class="btn btn-primary" href="#contact">無料相談する</a>
     </nav>
   </div>
 </header>
@@ -145,18 +196,32 @@
 <section class="hero">
   <div class="wrap">
     <div>
-      <span class="badge">運送会社さま向け｜PC・スマホ対応</span>
-      <h1>見積作成の<span class="hl">3分の作業</span>を、<br><span class="hl">10秒</span>に。</h1>
-      <p class="lead">お客様の依頼文を<b>貼り付ける</b>、または<b>スマホに話す</b>だけ。出発地・距離・重量・貨物を自動で読み取り、その場で見積金額と見積書が完成します。</p>
+      <span class="badge">運送会社さま向け｜見積標準化システム</span>
+      <h1>運送会社の見積を、<br><span class="hl">10秒で</span>。</h1>
+      <p class="lead">依頼文を<b>貼り付ける</b>、または<b>スマホに話す</b>だけ。集荷地・距離・温度帯を自動で読み取り、その場で見積金額と見積書が完成。<b>誰が作っても同じ見積</b>になります。</p>
       <div class="cta">
-        <a class="btn btn-primary" href="#contact">無料デモを依頼する</a>
-        <a class="btn btn-ghost" href="#features">機能を見る</a>
+        <a class="btn btn-primary btn-pulse" href="#contact">無料デモを依頼する</a>
+        <a class="btn btn-ghost" href="#demo">見積デモを見る</a>
       </div>
-      <div class="note">※ ネット不要・パソコン内で完結。情報を外部に出さず安心して使えます。</div>
+      <div class="trustline">
+        <span>✓ <b>誰でも同じ見積</b></span>
+        <span>✓ 自社の料金ルールを再現</span>
+        <span>✓ 顧客情報は外部送信なし</span>
+      </div>
     </div>
-    <div class="mock">
+    <div class="mock" id="demo">
       <div class="phone">
-        <img src="/app-mobile.png" alt="Quottoスマホ版の見積画面（依頼文から自動で見積）" style="width:100%;height:100%;border-radius:24px;object-fit:cover;object-position:top;display:block" />
+        <div class="screen">
+          <div class="s-head"><b>Quotto 見積</b><div>ESTIMATE DEMO</div></div>
+          <div class="s-body">
+            <div class="d-row" data-step="1"><span class="d-lbl">集荷地</span><span class="d-val">大阪市</span></div>
+            <div class="d-row" data-step="2"><span class="d-lbl">納品地</span><span class="d-val">名古屋市</span></div>
+            <div class="d-chip" data-step="3"><span>軽</span><span>2t</span><span class="sel">4t 冷蔵</span></div>
+            <div class="d-total" data-step="4"><span>見積金額（税込）</span><span class="v" id="demoAmt">¥0</span></div>
+            <div class="d-pdf" data-step="5">📄 PDFで出力</div>
+            <div class="d-done" data-step="6">✓ 見積完了</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -165,12 +230,56 @@
 <!-- PAIN -->
 <section class="pain">
   <div class="wrap">
-    <div class="eyebrow">こんなお悩みありませんか</div>
-    <h2 class="sec-title">その見積、まだ手作業ですか？</h2>
+    <div class="eyebrow reveal">こんなお悩みありませんか</div>
+    <h2 class="sec-title reveal">その見積、まだ手作業ですか？</h2>
     <div class="grid3">
-      <div class="card"><div class="ico">⏱️</div><h3>見積に時間がかかる</h3><p>電話やメールの依頼ごとに、距離や料金を毎回手計算。1件に何分もかかっていませんか。</p></div>
-      <div class="card"><div class="ico">🎲</div><h3>担当者で金額がバラつく</h3><p>人によって割増や割引の付け方が違い、見積価格が安定しない。引き継ぎも大変。</p></div>
-      <div class="card"><div class="ico">📄</div><h3>見積書づくりが面倒</h3><p>計算した金額を、別途Excelやワードで体裁を整えて清書…二度手間になっている。</p></div>
+      <div class="card reveal"><div class="ico">⏱️</div><h3>見積に時間がかかる</h3><p>電話やメールの依頼ごとに、距離や料金を毎回手計算。1件ごとに手間がかかっていませんか。</p></div>
+      <div class="card reveal"><div class="ico">🎲</div><h3>担当者で金額がバラつく</h3><p>人によって割増や割引の付け方が違い、見積価格が安定しない。引き継ぎも大変。</p></div>
+      <div class="card reveal"><div class="ico">📄</div><h3>見積書づくりが面倒</h3><p>計算した金額を、別途Excelやワードで体裁を整えて清書…二度手間になっている。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section class="ba">
+  <div class="wrap">
+    <div class="eyebrow reveal">BEFORE / AFTER</div>
+    <h2 class="sec-title reveal">見積の流れが、こう変わる。</h2>
+    <p class="sec-sub reveal">あちこちに散らばった手作業が、ひとつの画面でまとまります。</p>
+    <div class="ba-grid">
+      <div class="ba-card before reveal">
+        <div class="ba-label">Before</div>
+        <ul>
+          <li>Excelを開く</li>
+          <li>過去案件を探す</li>
+          <li>電卓で計算する</li>
+          <li>PDFを作る</li>
+          <li>担当者ごとに金額が変わる</li>
+        </ul>
+      </div>
+      <div class="ba-arrow reveal">→</div>
+      <div class="ba-card after reveal">
+        <div class="ba-label">After</div>
+        <ul>
+          <li>Quottoに入力</li>
+          <li>自動計算</li>
+          <li>類似案件を確認</li>
+          <li>PDFを出力</li>
+          <li>誰が作っても同じ金額</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA (mid) -->
+<section class="cta-band compact">
+  <div class="wrap">
+    <h2 class="reveal">自社の料金表で、試してみませんか？</h2>
+    <p class="reveal">御社の運賃ルールを設定し、実際の依頼例でその場で見積を作ってお見せします。</p>
+    <div class="cta reveal">
+      <a class="btn btn-white" href="#contact">自社の料金表で試してみる</a>
+      <a class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.6)" href="#features">機能を見る</a>
     </div>
   </div>
 </section>
@@ -178,16 +287,16 @@
 <!-- FEATURES -->
 <section class="feat" id="features">
   <div class="wrap">
-    <div class="eyebrow">FEATURES</div>
-    <h2 class="sec-title">「貼る・話す」だけで、見積が終わる。</h2>
-    <p class="sec-sub">運送業の運賃ルールに合わせて作った、自社専用の自動見積システムです。</p>
+    <div class="eyebrow reveal">FEATURES</div>
+    <h2 class="sec-title reveal">「貼る・話す」だけで、見積が終わる。</h2>
+    <p class="sec-sub reveal">運送業の運賃ルールに合わせて作った、自社専用の見積標準化システムです。</p>
     <div class="grid3">
-      <div class="card"><div class="fico">🧠</div><span class="tag">自動読み取り</span><h3>依頼文を貼るだけ</h3><p>メール本文や電話メモを貼り付けると、出発地・到着地・距離・重量・貨物・時間指定などを自動で抽出して入力します。</p></div>
-      <div class="card"><div class="fico">🎤</div><span class="tag">スマホ対応</span><h3>音声でその場入力</h3><p>スマホに話しかけるだけで見積。現場や電話対応中でも、両手がふさがっていてもサッと作成できます。</p></div>
-      <div class="card"><div class="fico">📐</div><span class="tag">運賃の型</span><h3>距離制・車建て・重量制</h3><p>会社ごとに違う運賃の決め方に対応。貨物割増（冷蔵・冷凍・精密など）も設定だけで反映します。</p></div>
-      <div class="card"><div class="fico">🧾</div><span class="tag">見積書</span><h3>自社の見積書をPDF出力</h3><p>ロゴ・社印・住所・インボイス登録番号・色・レイアウトまで、御社専用の見積書をワンクリックでPDFに。</p></div>
-      <div class="card"><div class="fico">👥</div><span class="tag">得意先管理</span><h3>得意先ごとの単価・割引</h3><p>取引先ごとの専用単価や割引率を登録。依頼文から会社名を見つけて、いつもの条件を自動適用します。</p></div>
-      <div class="card"><div class="fico">🔒</div><span class="tag">安心</span><h3>オフラインで完結</h3><p>パソコン内で動くので、社外秘の運賃情報が外部に出ません。ネット環境がなくても使えます。</p></div>
+      <div class="card reveal"><div class="fico">🧠</div><span class="tag">自動読み取り</span><h3>依頼文を貼るだけで自動入力</h3><p>メール本文や電話メモを貼り付けると、集荷地・納品地・距離・重量・温度帯まで自動で読み取って入力します。</p></div>
+      <div class="card reveal"><div class="fico">🎤</div><span class="tag">スマホ対応</span><h3>外出先でも音声でその場見積</h3><p>スマホに話しかけるだけ。現場や電話対応中でも、その場で金額を出せます。</p></div>
+      <div class="card reveal"><div class="fico">🚚</div><span class="tag">自社の料金ルール</span><h3>御社の車両条件に合わせた見積</h3><p>4t冷蔵・10t冷凍・軽ドライなど、自社の車両と料金ルールをそのまま再現して見積が作れます。</p></div>
+      <div class="card reveal"><div class="fico">📚</div><span class="tag">ナレッジ</span><h3>類似案件をその場で参照</h3><p>過去の似た案件を自動で表示。価格の付け方に迷わず、根拠のある見積が出せます。</p></div>
+      <div class="card reveal"><div class="fico">🧾</div><span class="tag">見積書</span><h3>PDF出力までワンクリック</h3><p>見積作成からPDF出力までワンクリックで完了。ロゴ・社印・インボイス番号入りの御社専用見積書になります。</p></div>
+      <div class="card reveal"><div class="fico">🔒</div><span class="tag">安心</span><h3>顧客情報を外部に送らない</h3><p>顧客情報や運賃情報を外部に送らず、社内で完結。安心して運用できます。</p></div>
     </div>
   </div>
 </section>
@@ -195,12 +304,12 @@
 <!-- STEPS -->
 <section class="steps" id="steps">
   <div class="wrap">
-    <div class="eyebrow" style="color:var(--beige)">HOW IT WORKS</div>
-    <h2 class="sec-title">使い方はかんたん3ステップ</h2>
+    <div class="eyebrow reveal" style="color:var(--beige)">HOW IT WORKS</div>
+    <h2 class="sec-title reveal">使い方はかんたん3ステップ</h2>
     <div class="grid3">
-      <div class="card"><div class="num">1</div><h3>依頼を入力</h3><p>依頼文を貼り付ける、またはスマホで話す。手入力でもOK。</p></div>
-      <div class="card"><div class="num">2</div><h3>自動で見積</h3><p>項目が自動入力され、運賃・割増・税込までその場で計算。</p></div>
-      <div class="card"><div class="num">3</div><h3>見積書を発行</h3><p>御社専用デザインの見積書をPDFで出力して、すぐ送付。</p></div>
+      <div class="card reveal"><div class="num">1</div><h3>依頼を入力</h3><p>依頼文を貼り付ける、またはスマホで話す。手入力でもOK。</p></div>
+      <div class="card reveal"><div class="num">2</div><h3>自動で見積</h3><p>項目が自動入力され、運賃・割増・税込まで計算。類似案件も参照できます。</p></div>
+      <div class="card reveal"><div class="num">3</div><h3>見積書を発行</h3><p>御社専用デザインの見積書をPDFで出力して、すぐ送付。</p></div>
     </div>
   </div>
 </section>
@@ -208,14 +317,14 @@
 <!-- WHY -->
 <section class="why" id="why">
   <div class="wrap">
-    <div class="eyebrow">WHY US</div>
-    <h2 class="sec-title">「自社専用」だから、現場で本当に使える</h2>
-    <p class="sec-sub">汎用ソフトの寄せ集めではなく、御社の運賃表・得意先・見積書に合わせて設定します。</p>
+    <div class="eyebrow reveal">WHY US</div>
+    <h2 class="sec-title reveal">「自社専用」だから、現場で本当に使える</h2>
+    <p class="sec-sub reveal">汎用ソフトの寄せ集めではなく、御社の運賃表・得意先・見積書に合わせて設定します。</p>
     <div style="max-width:760px;margin:0 auto">
-      <div class="row"><span class="ck">✓</span><div><h3>御社の運賃表をそのまま再現</h3><p>車種別・距離制・重量制・車建て、燃料サーチャージや高速代まで、実際の料金体系を設定で再現します。</p></div></div>
-      <div class="row"><span class="ck">✓</span><div><h3>PCでもスマホでも</h3><p>事務所のPCでじっくり、外出先ではスマホで音声入力。同じ料金設定を引き継いで使えます。</p></div></div>
-      <div class="row"><span class="ck">✓</span><div><h3>導入後の運用が軽い</h3><p>特別な専門知識は不要。普段の依頼文を貼るだけ。担当者が変わっても価格がブレません。</p></div></div>
-      <div class="row"><span class="ck">✓</span><div><h3>設定ファイルで横展開もスムーズ</h3><p>グループ会社や複数拠点へも、設定ファイルを渡すだけで同じ環境をすぐ再現できます。</p></div></div>
+      <div class="row reveal"><span class="ck">✓</span><div><h3>御社の料金ルールをそのまま再現</h3><p>4t冷蔵・10t冷凍など車両ごとの料金、燃料サーチャージや高速代まで、実際の料金体系を設定で再現します。</p></div></div>
+      <div class="row reveal"><span class="ck">✓</span><div><h3>誰が作っても同じ見積</h3><p>料金ルールを一度決めれば、新人でもベテランでも同じ金額に。担当者が変わっても価格がブレません。</p></div></div>
+      <div class="row reveal"><span class="ck">✓</span><div><h3>PCでもスマホでも</h3><p>事務所のPCでじっくり、外出先ではスマホで音声入力。同じ料金設定を引き継いで使えます。</p></div></div>
+      <div class="row reveal"><span class="ck">✓</span><div><h3>顧客情報を外部に送らない</h3><p>社内で完結する仕組みなので、社外秘の運賃情報や顧客情報が外部に出ません。</p></div></div>
     </div>
   </div>
 </section>
@@ -223,28 +332,35 @@
 <!-- PRICE -->
 <section class="price" id="price">
   <div class="wrap">
-    <div class="eyebrow">PRICING</div>
-    <h2 class="sec-title">料金</h2>
-    <p class="sec-sub">御社の運賃体系に合わせて初期設定を行います。まずは無料デモでお試しください。</p>
-    <div class="price-card">
-      <div class="p">要お見積り<small>／ 月額・買い切りをご相談</small></div>
+    <div class="eyebrow reveal">PRICING</div>
+    <h2 class="sec-title reveal">料金</h2>
+    <p class="sec-sub reveal">御社の規模・運賃体系に合わせてご提案します。まずは無料デモ・無料相談でお試しください。</p>
+    <div class="price-card reveal">
+      <div class="p">個別お見積り<small>規模・要件に応じてご案内します</small></div>
       <ul>
         <li>自社専用の料金表・得意先の初期設定</li>
         <li>御社デザインの見積書テンプレート作成</li>
         <li>PC版＋スマホ版（音声入力）</li>
         <li>導入サポート・操作レクチャー</li>
       </ul>
-      <a class="btn btn-primary" href="#contact">無料デモ・お見積りを依頼</a>
+      <div class="cta">
+        <a class="btn btn-primary" href="#contact">無料デモを依頼する</a>
+        <a class="btn btn-ghost" href="#contact">無料相談する</a>
+      </div>
+      <div style="margin-top:14px;font-size:13px;color:var(--muted)">お問い合わせ・お見積りは無料です。お気軽にご相談ください。</div>
     </div>
   </div>
 </section>
 
-<!-- CTA / CONTACT -->
+<!-- CTA / CONTACT (最下部) -->
 <section class="cta-band" id="contact">
   <div class="wrap">
-    <h2>まずは、御社の見積で試してみませんか？</h2>
-    <p>実際の依頼例で「どれくらい速くなるか」をその場でお見せします。</p>
-    <a class="btn btn-white" href="mailto:お問い合わせ先メール?subject=Quottoの問い合わせ">メールで相談する</a>
+    <h2 class="reveal">まずは、御社の見積で試してみませんか？</h2>
+    <p class="reveal">実際の依頼例で、その場で見積を作ってお見せします。導入のご相談・お見積りはすべて無料です。</p>
+    <div class="cta reveal">
+      <a class="btn btn-white" href="mailto:お問い合わせ先メール?subject=Quottoの無料デモ・相談">無料デモを依頼する</a>
+      <a class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.6)" href="mailto:お問い合わせ先メール?subject=Quottoのお問い合わせ">無料相談・お問い合わせ</a>
+    </div>
   </div>
 </section>
 
@@ -257,6 +373,60 @@
     <div>© 2026 Quotto</div>
   </div>
 </footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* スクロールで各要素をフェードイン／アップ */
+  var reveals = [].slice.call(document.querySelectorAll('.reveal'));
+  if (reduce || !('IntersectionObserver' in window)) {
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+    reveals.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ヒーローのスマホ見積デモを自動再生（ループ） */
+  var steps = [].slice.call(document.querySelectorAll('#demo [data-step]'));
+  var amtEl = document.getElementById('demoAmt');
+  var TARGET = 59000;
+  var timers = [];
+  function fmt(n){ return '¥' + Math.round(n).toLocaleString(); }
+  function countUp(){
+    var start = null, dur = 700;
+    function tick(t){
+      if (start === null) start = t;
+      var p = Math.min((t - start) / dur, 1);
+      amtEl.textContent = fmt(TARGET * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
+  function reset(){ steps.forEach(function(s){ s.classList.remove('on'); }); amtEl.textContent = '¥0'; }
+  function play(){
+    reset();
+    var t = 500;
+    steps.forEach(function(s){
+      timers.push(setTimeout(function(){
+        s.classList.add('on');
+        if (s.getAttribute('data-step') === '4') countUp();
+      }, t));
+      t += (s.getAttribute('data-step') === '3') ? 850 : 750;
+    });
+    timers.push(setTimeout(play, t + 2600)); /* 一巡したら少し待って再生 */
+  }
+  if (steps.length){
+    if (reduce){ steps.forEach(function(s){ s.classList.add('on'); }); amtEl.textContent = fmt(TARGET); }
+    else { play(); }
+  }
+})();
+</script>
 
 </body>
 </html>
