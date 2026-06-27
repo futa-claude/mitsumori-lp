@@ -7,221 +7,261 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Archivo+Black&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
 <meta name="description" content="運送会社向けの見積標準化システム。依頼文を貼る・話すだけで見積書が完成。誰が作っても同じ見積、自社の料金ルール（4t冷蔵・10t冷凍など）を再現、PDF即出力。" />
 <meta property="og:title" content="Quotto｜運送会社向け 見積標準化システム" />
 <meta property="og:description" content="運送会社の見積を、10秒で。誰が作っても同じ見積。" />
 <meta property="og:type" content="website" />
 <script>document.documentElement.classList.add('js');</script>
 <style>
-  :root{
-    --teal:#0E7C6B; --teal2:#12B39B; --navy:#0C3F37; --navy2:#0a332d;
-    --ink:#11201d; --body:#41504c; --muted:#6a7873;
-    --line:#e6ebe9; --bg:#ffffff; --tint:#f5f8f7; --beige:#EAE0C9;
-    --glass:rgba(255,255,255,.66);
-    --sans:'Inter',system-ui,-apple-system,"Segoe UI","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
-    --mono:'Inter',ui-monospace,monospace;
-    --shadow-lg:0 30px 80px rgba(12,63,55,.16);
-    --shadow-md:0 12px 32px rgba(12,63,55,.10);
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:1140px;margin:0 auto;padding:0 22px}
-  .wm{font-family:'Archivo Black','Arial Black',sans-serif;letter-spacing:.4px;line-height:1}
-  .wm .o{color:var(--teal)}
-  .grad{background:linear-gradient(92deg,var(--teal),var(--teal2));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .eyebrow{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.14em;color:var(--teal);text-transform:uppercase;background:rgba(14,124,107,.08);border:1px solid rgba(14,124,107,.18);padding:5px 12px;border-radius:999px}
+:root{
+  --teal:#0B6859;
+  --teal2:#0E8A74;
+  --teal-lt:#E8F3F0;
+  --teal-bd:#C4DDD7;
+  --navy:#0A3D34;
+  --navy2:#062B23;
+  --ink:#111A18;
+  --body:#384542;
+  --muted:#6A7874;
+  --line:#DDE6E3;
+  --bg:#FFFFFF;
+  --tint:#F5F8F7;
+  --warm:#F8F4EE;
+  --red:#C0392B;
+  --red-lt:#FDF1F0;
+  --sans:'Noto Sans JP','Hiragino Kaku Gothic ProN','Yu Gothic',system-ui,sans-serif;
+  --serif-num:'Inter',ui-monospace,system-ui,sans-serif;
+  --shadow-sm:0 2px 8px rgba(10,61,52,.07);
+  --shadow-md:0 8px 28px rgba(10,61,52,.10);
+  --shadow-lg:0 24px 60px rgba(10,61,52,.14);
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:15px}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.logotype{font-family:var(--serif-num);font-size:22px;font-weight:800;letter-spacing:.5px;color:var(--ink)}
+.logotype .o{color:var(--teal)}
+.eyebrow{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.14em;color:var(--teal);background:var(--teal-lt);border:1px solid var(--teal-bd);padding:4px 11px;border-radius:99px}
 
-  /* buttons */
-  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:12px;padding:13px 22px;font-weight:700;font-size:15px;border:1px solid transparent;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,filter .18s ease,background .18s ease}
-  .btn-primary{background:linear-gradient(180deg,var(--teal2),var(--teal));color:#fff;box-shadow:0 8px 22px rgba(14,124,107,.32)}
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(14,124,107,.42);filter:brightness(1.04)}
-  .btn-ghost{background:#fff;color:var(--ink);border-color:#dfe5e3}
-  .btn-ghost:hover{transform:translateY(-2px);border-color:var(--teal);color:var(--teal);box-shadow:var(--shadow-md)}
-  .btn-white{background:#fff;color:var(--navy)}
-  .btn-white:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(0,0,0,.18)}
-  .btn-lineteal{background:transparent;color:#fff;border-color:rgba(255,255,255,.55)}
-  .btn-lineteal:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+/* ── ボタン ─────────────────── */
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:9px;padding:12px 22px;font-weight:700;font-size:15px;border:1.5px solid transparent;cursor:pointer;transition:all .18s ease;font-family:var(--sans)}
+.btn-primary{background:var(--teal);color:#fff;box-shadow:0 6px 18px rgba(11,104,89,.28)}
+.btn-primary:hover{background:var(--navy);transform:translateY(-1px);box-shadow:0 10px 24px rgba(11,104,89,.36)}
+.btn-ghost{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-1px)}
+.btn-white{background:#fff;color:var(--navy);font-weight:700}
+.btn-white:hover{transform:translateY(-1px);box-shadow:var(--shadow-md)}
+.btn-outline-w{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
+.btn-outline-w:hover{background:rgba(255,255,255,.12);transform:translateY(-1px)}
 
-  /* header (glass) */
-  header{position:sticky;top:0;z-index:30;transition:background .25s,border-color .25s,box-shadow .25s;border-bottom:1px solid transparent}
-  header.scrolled{background:rgba(255,255,255,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--line);box-shadow:0 1px 0 rgba(0,0,0,.02)}
-  header .wrap{display:flex;align-items:center;height:66px;gap:18px}
-  .logo{display:flex;align-items:center;gap:10px}
-  .logo .mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(180deg,var(--teal2),var(--teal));display:grid;place-items:center;color:#fff;font-weight:800;box-shadow:0 4px 12px rgba(14,124,107,.35)}
-  .logo .wm{font-size:23px;color:var(--ink)}
-  header nav{margin-left:auto;display:flex;gap:24px;align-items:center;font-size:14px;font-weight:600;color:var(--body)}
-  header nav a.lnk{opacity:.9} header nav a.lnk:hover{color:var(--teal)}
-  @media(max-width:780px){header nav a.lnk{display:none}}
+/* ── ヘッダー ─────────────────── */
+header{position:sticky;top:0;z-index:30;transition:all .25s;border-bottom:1px solid transparent}
+header.scrolled{background:rgba(255,255,255,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom-color:var(--line);box-shadow:0 1px 0 rgba(0,0,0,.04)}
+header .wrap{display:flex;align-items:center;height:64px;gap:16px}
+.logo-mark{width:32px;height:32px;border-radius:8px;background:var(--teal);display:grid;place-items:center;color:#fff;font-weight:800;font-family:var(--serif-num);font-size:13px;flex:none}
+header nav{margin-left:auto;display:flex;gap:20px;align-items:center;font-size:14px;font-weight:700;color:var(--body)}
+header nav a.lnk:hover{color:var(--teal)}
+@media(max-width:760px){header nav a.lnk{display:none}}
 
-  /* hero */
-  .hero{position:relative;overflow:hidden}
-  .hero::before{content:"";position:absolute;inset:0;z-index:-2;
-    background:radial-gradient(1100px 560px at 82% -8%,rgba(18,179,155,.20),transparent 60%),
-               radial-gradient(820px 520px at 2% 4%,rgba(234,224,201,.42),transparent 55%),
-               linear-gradient(180deg,#fbfdfc,#f3f8f6)}
-  .hero::after{content:"";position:absolute;inset:0;z-index:-1;opacity:.5;
-    background-image:linear-gradient(rgba(14,124,107,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(14,124,107,.06) 1px,transparent 1px);
-    background-size:46px 46px;
-    -webkit-mask-image:radial-gradient(900px 500px at 50% 0%,#000,transparent 75%);
-    mask-image:radial-gradient(900px 500px at 50% 0%,#000,transparent 75%)}
-  .hero .wrap{display:grid;grid-template-columns:1.04fr .96fr;gap:46px;padding:72px 22px 84px;align-items:center}
-  @media(max-width:920px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px 56px}}
-  .hero h1{font-size:54px;line-height:1.1;letter-spacing:-.02em;font-weight:800;margin:18px 0 18px}
-  @media(max-width:920px){.hero h1{font-size:36px}}
-  .hero p.lead{font-size:18px;color:var(--body);max-width:540px;margin-bottom:26px}
-  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
-  .hero .trust{margin-top:22px;display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted);font-weight:600}
-  .hero .trust b{color:var(--teal)}
+/* ── ヒーロー ─────────────────── */
+.hero{background:linear-gradient(160deg,#F2FAF8 0%,#FAFCFB 50%,var(--warm) 100%);border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:52px;padding:68px 24px 80px;align-items:center}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;padding:48px 24px 56px}}
+.hero-tag{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);border-radius:99px;padding:6px 14px 6px 8px;font-size:13px;font-weight:700;color:var(--body);margin-bottom:18px;box-shadow:var(--shadow-sm)}
+.hero-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--teal)}
+.hero h1{font-size:48px;line-height:1.12;letter-spacing:-.02em;font-weight:900;margin-bottom:18px;color:var(--ink)}
+.hero h1 .hl{color:var(--teal)}
+@media(max-width:900px){.hero h1{font-size:32px}}
+.hero .lead{font-size:17px;color:var(--body);line-height:1.8;margin-bottom:26px;max-width:480px}
+.hero .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.hero .checks{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px;font-size:13.5px;color:var(--muted);font-weight:600}
+.hero .checks span::before{content:"✓ ";color:var(--teal);font-weight:800}
 
-  /* hero product visual */
-  .visual{position:relative;justify-self:center;width:100%;max-width:560px}
-  .appwin{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lg);overflow:hidden}
-  .appwin .bar{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--line);background:#fbfdfc}
-  .appwin .dot{width:11px;height:11px;border-radius:50%;background:#e0e6e3}
-  .appwin .bar .t{margin-left:8px;font-size:12px;font-weight:700;color:var(--muted)}
-  .appwin .tabs{margin-left:auto;display:flex;gap:12px;font-size:11px;color:var(--muted);font-weight:600}
-  .appwin .tabs .on{color:var(--teal)}
-  .appwin .scr{padding:16px;background:#f7faf9}
-  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
-  .kpi{background:#fff;border:1px solid var(--line);border-radius:11px;padding:11px 12px}
-  .kpi .l{font-size:9.5px;color:var(--muted);font-weight:700}
-  .kpi .v{font-size:18px;font-weight:800;color:var(--teal);margin-top:3px}
-  .newq{background:linear-gradient(180deg,var(--teal2),var(--teal));color:#fff;border-radius:11px;padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:12px;box-shadow:0 8px 18px rgba(14,124,107,.28)}
-  .newq .plus{font-size:22px;font-weight:800}
-  .newq b{font-size:13px} .newq span{font-size:10px;opacity:.9;display:block}
-  .rowlist{background:#fff;border:1px solid var(--line);border-radius:11px;overflow:hidden}
-  .rowlist .r{display:flex;align-items:center;gap:8px;padding:9px 12px;font-size:10.5px;border-top:1px solid #eef3f1;color:var(--body)}
-  .rowlist .r:first-child{border-top:none;background:#fbfdfc;color:var(--muted);font-weight:700}
-  .rowlist .r .amt{margin-left:auto;font-weight:800;color:var(--ink)}
-  /* floating phone */
-  .phone{position:absolute;right:-14px;bottom:-26px;width:152px;height:312px;background:#0c151e;border-radius:26px;padding:8px;box-shadow:0 26px 50px rgba(0,0,0,.36);border:1px solid #243441}
-  .phone img{width:100%;height:100%;border-radius:19px;object-fit:cover;object-position:top;display:block}
-  @media(max-width:520px){.phone{display:none}}
-  .badge-float{position:absolute;left:-12px;top:18px;background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.7);border-radius:12px;padding:9px 12px;box-shadow:var(--shadow-md);font-size:12px;font-weight:700;color:var(--ink)}
-  .badge-float b{color:var(--teal)}
-  @media(max-width:920px){.badge-float{display:none}}
+/* ── アプリウィンドウ ─────────────────── */
+.appwin{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-lg);overflow:hidden;position:relative}
+.aw-bar{display:flex;align-items:center;gap:7px;padding:10px 14px;border-bottom:1px solid var(--line);background:#FAFBFA}
+.aw-dot{width:10px;height:10px;border-radius:50%;background:#E2E8E5}
+.aw-bar .title{margin-left:8px;font-size:11.5px;font-weight:700;color:var(--muted)}
+.aw-tabs{margin-left:auto;display:flex;gap:10px;font-size:11px;font-weight:700;color:var(--muted)}
+.aw-tabs .on{color:var(--teal)}
+.aw-body{padding:14px;background:#F6F9F8}
+.aw-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:11px}
+.aw-kpi{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.aw-kpi .l{font-size:9px;color:var(--muted);font-weight:700;letter-spacing:.06em}
+.aw-kpi .v{font-size:19px;font-weight:800;color:var(--teal);margin-top:2px;font-family:var(--serif-num)}
+.aw-newq{background:var(--teal);color:#fff;border-radius:10px;padding:11px 14px;display:flex;align-items:center;gap:10px;margin-bottom:11px}
+.aw-newq .plus{font-size:20px;font-weight:800;font-family:var(--serif-num)}
+.aw-newq b{font-size:12.5px} .aw-newq span{font-size:9.5px;opacity:.88;display:block}
+.aw-list{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.aw-row{display:flex;align-items:center;gap:8px;padding:9px 12px;font-size:10.5px;border-top:1px solid #EEF2F0;color:var(--body)}
+.aw-row:first-child{border-top:none;background:#FAFBFA;color:var(--muted);font-weight:700;font-size:10px}
+.aw-row .amt{margin-left:auto;font-weight:800;color:var(--ink);font-family:var(--serif-num)}
+/* スマホ */
+.hero-phone{position:absolute;right:-16px;bottom:-20px;width:154px;height:310px;background:#0F1714;border-radius:28px;padding:8px;box-shadow:0 24px 50px rgba(0,0,0,.36);border:1.5px solid #1E2B27}
+.hero-phone-screen{width:100%;height:100%;border-radius:21px;background:#F5F8F7;overflow:hidden;display:flex;flex-direction:column}
+.hp-topbar{background:#fff;padding:8px 10px 7px;border-bottom:1px solid #E8EEEC;display:flex;align-items:center;justify-content:space-between}
+.hp-topbar .hp-logo{font-size:10px;font-weight:800;color:var(--teal);font-family:var(--serif-num)}
+.hp-topbar .hp-sub{font-size:8px;color:var(--muted)}
+.hp-body{flex:1;padding:9px 9px 0;display:flex;flex-direction:column;gap:7px;overflow:hidden}
+.hp-route{background:#fff;border:1px solid #DDE6E3;border-radius:8px;padding:7px 8px;font-size:8.5px;display:flex;align-items:center;gap:4px;color:var(--body)}
+.hp-route .pin{font-size:9px;color:var(--teal);font-weight:700}
+.hp-route .arr{color:var(--teal);font-size:9px}
+.hp-specs{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.hp-spec{background:#fff;border:1px solid #DDE6E3;border-radius:7px;padding:5px 7px}
+.hp-spec .l{font-size:7px;color:var(--muted);font-weight:600}
+.hp-spec .v{font-size:11px;font-weight:700;color:var(--ink);font-family:var(--serif-num)}
+.hp-mic{background:var(--teal);border-radius:9px;padding:9px 8px;display:flex;align-items:center;gap:6px;color:#fff}
+.hp-mic .mic-ico{font-size:16px;line-height:1}
+.hp-mic .mic-txt{font-size:8.5px;font-weight:700;line-height:1.3}
+.hp-mic .mic-sub{font-size:7px;opacity:.85;display:block;margin-top:1px}
+.hp-total{background:#fff;border:1px solid #DDE6E3;border-radius:8px;padding:7px 9px;display:flex;align-items:center;justify-content:space-between;margin-top:auto;margin-bottom:9px}
+.hp-total .tl{font-size:7.5px;color:var(--muted)}
+.hp-total .tv{font-size:16px;font-weight:800;color:var(--teal);font-family:var(--serif-num)}
+@media(max-width:480px){.hero-phone{display:none}}
+.hero-badge{position:absolute;left:-10px;top:16px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 13px;box-shadow:var(--shadow-md);font-size:12px;font-weight:700;color:var(--ink);white-space:nowrap}
+.hero-badge b{color:var(--teal);display:block;font-size:14px}
+@media(max-width:900px){.hero-badge{display:none}}
+.appwin-wrap{position:relative;justify-self:center;width:100%;max-width:540px}
 
-  /* stat band (count up) */
-  .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
-  .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:30px 22px}
-  @media(max-width:780px){.stats .wrap{grid-template-columns:repeat(2,1fr);gap:18px}}
-  .stat{text-align:center}
-  .stat .n{font-size:40px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
-  .stat .n .u{font-size:20px;color:var(--teal);margin-left:2px}
-  .stat .c{font-size:13px;color:var(--muted);font-weight:600;margin-top:2px}
+/* ── スタッツ ─────────────────── */
+.stats{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);padding:28px 24px}
+@media(max-width:720px){.stats .wrap{grid-template-columns:repeat(2,1fr)}}
+.stat{text-align:center;padding:16px 8px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:none}
+.stat .n{font-size:38px;font-weight:800;color:var(--ink);font-family:var(--serif-num);letter-spacing:-.02em}
+.stat .n .u{font-size:18px;color:var(--teal);margin-left:1px}
+.stat .c{font-size:12.5px;color:var(--muted);font-weight:600;margin-top:3px}
 
-  /* sections rhythm */
-  section.sec{padding:84px 0}
-  .sec.tint{background:var(--tint)}
-  .sec.dark{background:linear-gradient(180deg,var(--navy),var(--navy2));color:#fff}
-  .head-c{text-align:center;max-width:680px;margin:0 auto 50px}
-  .head-c h2{font-size:34px;line-height:1.25;letter-spacing:-.02em;font-weight:800;margin:12px 0 12px}
-  @media(max-width:780px){.head-c h2{font-size:26px}}
-  .head-c p{color:var(--muted);font-size:16px}
-  .sec.dark .head-c p{color:#aebfb9}
-  .sec.dark .eyebrow{color:var(--beige);background:rgba(234,224,201,.12);border-color:rgba(234,224,201,.25)}
+/* ── セクション共通 ─────────────────── */
+section.sec{padding:76px 0}
+.sec.tint{background:var(--tint)}
+.sec.warm{background:var(--warm)}
+.sec.dark{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff}
+.head-c{text-align:center;max-width:660px;margin:0 auto 48px}
+.head-c h2{font-size:32px;font-weight:900;letter-spacing:-.02em;line-height:1.25;margin:12px 0 12px;color:var(--ink)}
+.sec.dark .head-c h2{color:#fff}
+@media(max-width:760px){.head-c h2{font-size:24px}}
+.head-c p{color:var(--muted);font-size:16px}
+.sec.dark .head-c p{color:#A6C0B8}
+.sec.dark .eyebrow{color:#D4EDE7;background:rgba(212,237,231,.12);border-color:rgba(212,237,231,.2)}
 
-  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-  @media(max-width:860px){.grid3{grid-template-columns:1fr}}
-  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:0 1px 2px rgba(0,0,0,.03);transition:transform .2s,box-shadow .2s,border-color .2s}
-  .card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:#d6e0dd}
-  .feat .fico{width:48px;height:48px;border-radius:13px;background:linear-gradient(180deg,#eafaf6,#d8f3ec);display:grid;place-items:center;font-size:23px;margin-bottom:14px}
-  .feat h3{font-size:18px;margin-bottom:7px}
-  .feat p{color:var(--muted);font-size:14.5px}
-  .tag{display:inline-block;font-size:11px;font-weight:700;color:var(--teal);background:rgba(14,124,107,.09);padding:3px 9px;border-radius:6px;margin-bottom:10px}
+/* ── カード ─────────────────── */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:840px){.grid3{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px;transition:all .2s}
+.card:hover{box-shadow:var(--shadow-md);border-color:#B8CEC8}
 
-  /* pain */
-  .pain .card{text-align:center}
-  .pain .ico{font-size:30px} .pain h3{margin:12px 0 6px;font-size:18px} .pain p{color:var(--muted);font-size:14.5px}
+/* ── 悩みセクション ─────────────────── */
+.pain .card{border-left:4px solid #C8D8D5;padding-left:22px}
+.pain .card.red{border-left-color:var(--red)}
+.pain .ico-circle{width:44px;height:44px;border-radius:50%;background:var(--red-lt);display:grid;place-items:center;font-size:20px;margin-bottom:14px}
+.pain .card.neutral .ico-circle{background:var(--teal-lt)}
+.pain h3{font-size:17px;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.pain p{color:var(--muted);font-size:14.5px;line-height:1.75}
 
-  /* before / after big */
-  .ba-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:26px;align-items:stretch;max-width:980px;margin:0 auto}
-  @media(max-width:860px){.ba-grid{grid-template-columns:1fr;gap:16px}}
-  .ba-card{border-radius:20px;padding:34px 34px}
-  .ba-card .lbl{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
-  .ba-card ul{list-style:none;display:grid;gap:13px}
-  .ba-card li{position:relative;padding-left:32px;font-size:16px}
-  .ba-card.before{background:#fff;border:1px solid var(--line);color:var(--muted)}
-  .ba-card.before .lbl{color:#aa9b9b}
-  .ba-card.before li::before{content:"✕";position:absolute;left:4px;top:1px;color:#d98a8a;font-weight:800}
-  .ba-card.after{background:linear-gradient(180deg,#effaf7,#e3f4ee);border:2px solid var(--teal);color:var(--ink);box-shadow:var(--shadow-md)}
-  .ba-card.after .lbl{color:var(--teal)}
-  .ba-card.after li{font-weight:600}
-  .ba-card.after li::before{content:"✓";position:absolute;left:2px;top:1px;color:var(--teal);font-weight:800}
-  .ba-arrow{align-self:center;font-size:30px;color:var(--teal);font-weight:800}
-  @media(max-width:860px){.ba-arrow{transform:rotate(90deg)}}
+/* ── Before/After ─────────────────── */
+.ba-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:stretch;max-width:940px;margin:0 auto}
+@media(max-width:840px){.ba-grid{grid-template-columns:1fr;gap:12px}}
+.ba-card{border-radius:16px;padding:32px}
+.ba-card .lbl{font-size:12.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.ba-card ul{list-style:none;display:grid;gap:13px}
+.ba-card li{position:relative;padding-left:28px;font-size:15.5px;line-height:1.6}
+.ba-card.before{background:#fff;border:1px solid var(--line);color:var(--muted)}
+.ba-card.before .lbl{color:#B0A8A8}
+.ba-card.before li::before{content:"✕";position:absolute;left:2px;top:1px;color:#C0392B;font-weight:800}
+.ba-card.after{background:linear-gradient(160deg,#EFF8F5,#E4F3EE);border:2px solid var(--teal);color:var(--ink)}
+.ba-card.after .lbl{color:var(--teal)}
+.ba-card.after li{font-weight:600}
+.ba-card.after li::before{content:"✓";position:absolute;left:0;top:1px;color:var(--teal);font-weight:800}
+.ba-arrow{align-self:center;font-size:26px;color:var(--teal);font-weight:800;text-align:center}
+@media(max-width:840px){.ba-arrow{transform:rotate(90deg)}}
 
-  /* screens showcase */
-  .screens{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-  @media(max-width:860px){.screens{grid-template-columns:1fr}}
-  .shot{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.03);transition:transform .2s,box-shadow .2s}
-  .shot:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
-  .shot .bar{display:flex;gap:6px;padding:9px 12px;border-bottom:1px solid var(--line);background:#fbfdfc}
-  .shot .bar i{width:9px;height:9px;border-radius:50%;background:#e0e6e3;display:inline-block}
-  .shot .pic{height:150px;padding:14px;background:#f7faf9}
-  .shot .cap{padding:14px 16px} .shot .cap b{font-size:15px} .shot .cap p{font-size:13px;color:var(--muted);margin-top:3px}
-  .mini-kpis{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:8px}
-  .mini-kpis div{background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 6px;text-align:center}
-  .mini-kpis .v{font-size:14px;font-weight:800;color:var(--teal)} .mini-kpis .l{font-size:8px;color:var(--muted)}
-  .mini-bar{height:9px;border-radius:5px;background:#e7efec;margin:7px 0}
-  .mini-bar.teal{background:linear-gradient(90deg,var(--teal2),var(--teal))}
-  .mini-row{display:flex;gap:6px;align-items:center;margin:6px 0;font-size:9px;color:var(--muted)}
-  .mini-pill{background:#e6f6f1;color:var(--teal);border-radius:6px;padding:5px 8px;font-size:9px;font-weight:700}
-  .mini-total{background:linear-gradient(180deg,var(--teal2),var(--teal));color:#fff;border-radius:9px;padding:9px 11px;display:flex;justify-content:space-between;align-items:center;font-size:10px;margin-top:auto}
-  .mini-total b{font-size:15px}
+/* ── スクリーンショット ─────────────────── */
+.screens{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:840px){.screens{grid-template-columns:1fr}}
+.shot{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:all .2s}
+.shot:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.shot-bar{display:flex;gap:5px;padding:9px 12px;border-bottom:1px solid var(--line);background:#FAFBFA}
+.shot-bar i{width:8px;height:8px;border-radius:50%;background:#D8E2DF;display:inline-block}
+.shot-pic{height:148px;padding:13px;background:#F5F8F7;display:flex;flex-direction:column;gap:7px}
+.shot-cap{padding:14px 16px;border-top:1px solid var(--line)}
+.shot-cap b{font-size:15px;font-weight:700}
+.shot-cap p{font-size:13px;color:var(--muted);margin-top:3px}
+/* ショット内のモック部品 */
+.s-kpis{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.s-kpi{background:#fff;border:1px solid var(--line);border-radius:7px;padding:7px 5px;text-align:center}
+.s-kpi .v{font-size:13px;font-weight:800;color:var(--teal);font-family:var(--serif-num)}
+.s-kpi .l{font-size:7.5px;color:var(--muted)}
+.s-bar{height:8px;border-radius:4px;background:#DDE6E3}
+.s-bar.fill{background:var(--teal)}
+.s-pill{display:inline-block;background:var(--teal-lt);color:var(--teal);border-radius:5px;padding:3px 7px;font-size:9px;font-weight:700}
+.s-total{background:var(--teal);color:#fff;border-radius:8px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;font-size:9.5px;margin-top:auto}
+.s-total b{font-size:14px;font-family:var(--serif-num)}
+.s-row{display:flex;align-items:center;gap:5px;font-size:9px;color:var(--muted)}
+.s-tag{background:#F5F8F7;border:1px solid var(--line);border-radius:5px;padding:3px 7px;font-size:9px;font-weight:600;color:var(--body)}
 
-  /* steps */
-  .steps .grid3{gap:24px}
-  .steps .card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;backdrop-filter:blur(6px)}
-  .steps .card:hover{border-color:rgba(255,255,255,.3)}
-  .steps .num{width:42px;height:42px;border-radius:12px;background:var(--beige);color:var(--navy);display:grid;place-items:center;font-weight:800;margin-bottom:14px}
-  .steps h3{font-size:17px;margin-bottom:6px} .steps p{color:#aebfb9;font-size:14px}
+/* ── 機能 ─────────────────── */
+.feat .f-icon{width:46px;height:46px;border-radius:11px;background:var(--teal-lt);display:grid;place-items:center;margin-bottom:14px;font-size:21px;color:var(--teal)}
+.feat .f-tag{display:inline-block;font-size:11px;font-weight:700;color:var(--teal);background:var(--teal-lt);padding:3px 9px;border-radius:6px;margin-bottom:9px}
+.feat h3{font-size:17px;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.feat p{color:var(--muted);font-size:14.5px;line-height:1.75}
 
-  /* why */
-  .why .row{display:flex;gap:16px;align-items:flex-start;padding:20px 0;border-bottom:1px solid var(--line)}
-  .why .ck{width:26px;height:26px;border-radius:8px;background:#e6f6f1;color:var(--teal);display:grid;place-items:center;font-weight:800;flex:none}
-  .why h3{font-size:17px;margin-bottom:3px} .why p{color:var(--muted);font-size:14.5px}
+/* ── ステップ ─────────────────── */
+.steps .card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:#fff;padding:28px}
+.steps .card:hover{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.11)}
+.steps .step-num{width:40px;height:40px;border-radius:10px;background:var(--teal2);display:grid;place-items:center;font-weight:800;font-size:17px;margin-bottom:14px;font-family:var(--serif-num);color:#fff}
+.steps h3{font-size:17px;margin-bottom:7px;font-weight:700}
+.steps p{color:#A8C4BC;font-size:14px;line-height:1.75}
 
-  /* pricing */
-  .price-card{max-width:560px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:22px;padding:40px;text-align:center;box-shadow:var(--shadow-md);position:relative;overflow:hidden}
-  .price-card::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--teal2),var(--teal))}
-  .price-card .p{font-size:32px;font-weight:800}
-  .price-card .p small{display:block;font-size:14px;color:var(--muted);font-weight:600;margin-top:6px}
-  .price-card ul{list-style:none;text-align:left;max-width:360px;margin:22px auto 26px;display:grid;gap:11px}
-  .price-card li{position:relative;padding-left:28px;font-size:15px}
-  .price-card li::before{content:"✓";position:absolute;left:0;color:var(--teal);font-weight:800}
-  .price-card .cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+/* ── なぜQuotto ─────────────────── */
+.why-row{display:flex;gap:16px;align-items:flex-start;padding:20px 0;border-bottom:1px solid var(--line)}
+.why-row:last-child{border-bottom:none}
+.why-ck{width:28px;height:28px;border-radius:8px;background:var(--teal-lt);color:var(--teal);display:grid;place-items:center;font-weight:800;flex:none;font-size:15px}
+.why-row h3{font-size:17px;font-weight:700;margin-bottom:4px;color:var(--ink)}
+.why-row p{color:var(--muted);font-size:14.5px;line-height:1.75}
 
-  /* final cta */
-  .cta-final{background:linear-gradient(135deg,var(--teal),var(--navy));color:#fff;border-radius:28px;padding:60px 30px;text-align:center;position:relative;overflow:hidden}
-  .cta-final::after{content:"";position:absolute;inset:0;opacity:.5;background:radial-gradient(600px 300px at 80% 0%,rgba(255,255,255,.18),transparent 60%)}
-  .cta-final h2{font-size:34px;font-weight:800;letter-spacing:-.02em;margin-bottom:12px;position:relative}
-  @media(max-width:780px){.cta-final h2{font-size:25px}}
-  .cta-final p{opacity:.95;margin-bottom:26px;font-size:16px;position:relative}
-  .cta-final .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative}
+/* ── 料金 ─────────────────── */
+.price-card{max-width:540px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:20px;padding:38px;text-align:center;box-shadow:var(--shadow-md);position:relative;overflow:hidden}
+.price-card::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--teal)}
+.price-card .p{font-size:28px;font-weight:800;color:var(--ink)}
+.price-card .p small{display:block;font-size:14px;color:var(--muted);font-weight:600;margin-top:6px}
+.price-card ul{list-style:none;text-align:left;max-width:360px;margin:22px auto 26px;display:grid;gap:12px}
+.price-card li{position:relative;padding-left:26px;font-size:15px;color:var(--body)}
+.price-card li::before{content:"✓";position:absolute;left:0;color:var(--teal);font-weight:800}
+.price-card .cta-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 
-  footer{padding:42px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
-  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+/* ── 最終CTA ─────────────────── */
+.cta-final{background:var(--navy);color:#fff;border-radius:20px;padding:58px 32px;text-align:center;position:relative;overflow:hidden}
+.cta-final::before{content:"";position:absolute;inset:0;background:radial-gradient(700px 400px at 80% 0%,rgba(14,138,116,.3),transparent 60%);pointer-events:none}
+.cta-final h2{font-size:32px;font-weight:900;letter-spacing:-.02em;margin-bottom:12px;position:relative}
+@media(max-width:760px){.cta-final h2{font-size:24px}}
+.cta-final p{opacity:.9;margin-bottom:26px;font-size:16px;position:relative;line-height:1.8}
+.cta-final .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative}
 
-  /* reveal */
-  .js .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
-  .js .reveal.in{opacity:1;transform:none}
-  .js .grid3 .reveal:nth-child(2),.js .screens .reveal:nth-child(2){transition-delay:.08s}
-  .js .grid3 .reveal:nth-child(3),.js .screens .reveal:nth-child(3){transition-delay:.16s}
-  .js .grid3 .reveal:nth-child(4),.js .grid3 .reveal:nth-child(5),.js .grid3 .reveal:nth-child(6){transition-delay:.1s}
-  @media(prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none;transition:none}*{scroll-behavior:auto}}
+/* ── フッター ─────────────────── */
+footer{padding:38px 0;border-top:1px solid var(--line);background:var(--tint)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center;font-size:13.5px;color:var(--muted)}
+
+/* ── リビール ─────────────────── */
+.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s cubic-bezier(.2,.7,.2,1),transform .65s cubic-bezier(.2,.7,.2,1)}
+.js .reveal.in{opacity:1;transform:none}
+.js .grid3 .reveal:nth-child(2),.js .screens .reveal:nth-child(2){transition-delay:.08s}
+.js .grid3 .reveal:nth-child(3),.js .screens .reveal:nth-child(3){transition-delay:.16s}
+@media(prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none;transition:none}*{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 
+<!-- ヘッダー -->
 <header id="hdr">
   <div class="wrap">
-    <a class="logo" href="#" aria-label="Quotto">
-      <span class="mark">運</span>
-      <span class="wm">Qu<span class="o">o</span>tt<span class="o">o</span></span>
+    <a href="#" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+      <div class="logo-mark">Q</div>
+      <span class="logotype">Qu<span class="o">o</span>tt<span class="o">o</span></span>
     </a>
     <nav>
       <a class="lnk" href="#screens">画面</a>
@@ -237,66 +277,113 @@
 <section class="hero">
   <div class="wrap">
     <div>
-      <span class="eyebrow">運送会社向け 見積標準化システム</span>
-      <h1>運送会社の見積を、<br><span class="grad">10秒で。</span></h1>
-      <p class="lead">依頼文を<b>貼る</b>・スマホに<b>話す</b>だけ。集荷地・距離・温度帯を自動で読み取り、その場で見積書が完成。<b>誰が作っても同じ見積</b>になります。</p>
-      <div class="cta">
+      <div class="hero-tag"><span class="dot"></span>運送会社専用 見積標準化システム</div>
+      <h1>見積が、<span class="hl">10秒</span>で<br>終わる会社になる。</h1>
+      <p class="lead">依頼文を<strong>貼る</strong>だけ・スマホに<strong>話す</strong>だけ。<br>集荷地・距離・温度帯を読み取り、自社の料金で自動計算。<br><strong>誰が作っても、同じ金額</strong>になります。</p>
+      <div class="cta-row">
         <a class="btn btn-primary" href="#contact">無料デモを依頼する</a>
-        <a class="btn btn-ghost" href="#screens">実際の画面を見る</a>
+        <a class="btn btn-ghost" href="#screens">画面を見る</a>
       </div>
-      <div class="trust">
-        <span>✓ <b>誰でも同じ見積</b></span>
-        <span>✓ 自社の料金ルールを再現</span>
-        <span>✓ PC・スマホ対応</span>
+      <div class="checks">
+        <span>誰でも同じ見積</span>
+        <span>自社の料金ルールを再現</span>
+        <span>PC・スマホ対応</span>
+        <span>社外に情報が出ない</span>
       </div>
     </div>
 
-    <div class="visual">
-      <div class="badge-float">標準化 <b>100%</b><br>担当者で価格がブレない</div>
+    <div class="appwin-wrap">
+      <div class="hero-badge"><b>金額ブレ ゼロ</b>担当者が変わっても<br>同じ見積が出る</div>
       <div class="appwin">
-        <div class="bar">
-          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-          <span class="t">Quotto — ダッシュボード</span>
-          <span class="tabs"><span class="on">ダッシュボード</span><span>見積作成</span><span>過去案件</span></span>
+        <div class="aw-bar">
+          <span class="aw-dot"></span><span class="aw-dot"></span><span class="aw-dot"></span>
+          <span class="title">Quotto — ダッシュボード</span>
+          <span class="aw-tabs"><span class="on">ダッシュボード</span><span>見積作成</span><span>過去案件</span></span>
         </div>
-        <div class="scr">
-          <div class="kpis">
-            <div class="kpi"><div class="l">今月の見積</div><div class="v">42 件</div></div>
-            <div class="kpi"><div class="l">累計案件</div><div class="v">318 件</div></div>
-            <div class="kpi"><div class="l">今月の金額</div><div class="v">¥7.9M</div></div>
+        <div class="aw-body">
+          <div class="aw-kpis">
+            <div class="aw-kpi"><div class="l">今月の見積</div><div class="v">42 件</div></div>
+            <div class="aw-kpi"><div class="l">累計案件</div><div class="v">318 件</div></div>
+            <div class="aw-kpi"><div class="l">今月の金額</div><div class="v">¥7.9M</div></div>
           </div>
-          <div class="newq"><span class="plus">＋</span><span><b>新規見積を作成</b><span>見積作成画面へ移動</span></span></div>
-          <div class="rowlist">
-            <div class="r"><span>得意先</span><span>区間</span><span class="amt">金額</span></div>
-            <div class="r"><span>関西物流</span><span>大阪→神戸</span><span class="amt">¥21,000</span></div>
-            <div class="r"><span>西日本運輸</span><span>東京→福岡</span><span class="amt">¥419,000</span></div>
-            <div class="r"><span>東名急配</span><span>福岡→熊本</span><span class="amt">¥97,000</span></div>
+          <div class="aw-newq">
+            <span class="plus">＋</span>
+            <span><b>新規見積を作成する</b><span>見積作成画面へ移動</span></span>
+          </div>
+          <div class="aw-list">
+            <div class="aw-row"><span>得意先</span><span>区間</span><span class="amt">金額</span></div>
+            <div class="aw-row"><span>関西物流㈱</span><span>大阪→神戸</span><span class="amt">¥21,000</span></div>
+            <div class="aw-row"><span>西日本運輸</span><span>東京→福岡</span><span class="amt">¥419,000</span></div>
+            <div class="aw-row"><span>東名急配</span><span>福岡→熊本</span><span class="amt">¥97,000</span></div>
           </div>
         </div>
       </div>
-      <div class="phone"><img src="app-mobile.png" alt="Quottoスマホ版の見積画面" /></div>
+      <div class="hero-phone">
+        <div class="hero-phone-screen">
+          <div class="hp-topbar">
+            <span class="hp-logo">Quotto</span>
+            <span class="hp-sub">スマホ版</span>
+          </div>
+          <div class="hp-body">
+            <div class="hp-route">
+              <span class="pin">📍</span>大阪市西区
+              <span class="arr">→</span>名古屋市中区
+            </div>
+            <div class="hp-specs">
+              <div class="hp-spec"><div class="l">車格</div><div class="v">4t車</div></div>
+              <div class="hp-spec"><div class="l">温度帯</div><div class="v">冷蔵</div></div>
+              <div class="hp-spec"><div class="l">距離</div><div class="v">183km</div></div>
+              <div class="hp-spec"><div class="l">時間指定</div><div class="v">あり</div></div>
+            </div>
+            <div class="hp-mic">
+              <span class="mic-ico">🎤</span>
+              <span class="mic-txt">話して入力<span class="mic-sub">タップして話しかける</span></span>
+            </div>
+            <div class="hp-total">
+              <span class="tl">見積金額（税込）</span>
+              <span class="tv">¥59,000</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- STATS (count up) -->
+<!-- STATS -->
 <div class="stats">
   <div class="wrap">
-    <div class="stat reveal"><div class="n"><span class="count" data-to="10">0</span><span class="u">秒</span></div><div class="c">見積作成</div></div>
-    <div class="stat reveal"><div class="n"><span class="count" data-to="100">0</span><span class="u">%</span></div><div class="c">誰でも同じ見積</div></div>
-    <div class="stat reveal"><div class="n"><span class="count" data-to="3">0</span><span class="u">帯</span></div><div class="c">ドライ/冷蔵/冷凍</div></div>
-    <div class="stat reveal"><div class="n"><span class="count" data-to="2">0</span><span class="u">端末</span></div><div class="c">PC・スマホ対応</div></div>
+    <div class="stat reveal"><div class="n"><span class="count" data-to="10">0</span><span class="u">秒</span></div><div class="c">最短の見積作成時間</div></div>
+    <div class="stat reveal"><div class="n"><span class="count" data-to="100">0</span><span class="u">%</span></div><div class="c">誰が作っても同じ金額</div></div>
+    <div class="stat reveal"><div class="n"><span class="count" data-to="3">0</span><span class="u">温度帯</span></div><div class="c">ドライ・冷蔵・冷凍に対応</div></div>
+    <div class="stat reveal"><div class="n"><span class="count" data-to="2">0</span><span class="u">端末</span></div><div class="c">PC・スマホで使える</div></div>
   </div>
 </div>
 
 <!-- PAIN -->
 <section class="sec tint pain">
   <div class="wrap">
-    <div class="head-c reveal"><span class="eyebrow">こんなお悩み</span><h2>その見積、まだ手作業ですか？</h2></div>
+    <div class="head-c reveal">
+      <span class="eyebrow">こんなお悩み</span>
+      <h2>その見積、まだ手作業ですか？</h2>
+      <p>多くの運送会社が抱える"見積の非効率"です。</p>
+    </div>
     <div class="grid3">
-      <div class="card reveal"><div class="ico">⏱️</div><h3>見積に時間がかかる</h3><p>依頼ごとに距離や料金を毎回手計算。1件ごとに手間がかかる。</p></div>
-      <div class="card reveal"><div class="ico">🎲</div><h3>担当者で金額がバラつく</h3><p>割増・割引の付け方が人によって違い、価格が安定しない。</p></div>
-      <div class="card reveal"><div class="ico">📄</div><h3>見積書づくりが面倒</h3><p>計算後にExcel/Wordで清書。二度手間になっている。</p></div>
+      <div class="card red reveal">
+        <div class="ico-circle">⏱</div>
+        <h3>1件の見積に時間がかかる</h3>
+        <p>距離・料金・加算を毎回手計算。電話対応しながらでは対応できず、折り返しになる。</p>
+      </div>
+      <div class="card red reveal">
+        <div class="ico-circle">📊</div>
+        <h3>担当者で金額がバラつく</h3>
+        <p>割増・割引の付け方が人によって違い、同じ依頼なのに金額が変わる。ベテランが抜けると困る。</p>
+      </div>
+      <div class="card red reveal">
+        <div class="ico-circle">📄</div>
+        <h3>計算してからまた清書</h3>
+        <p>電卓・Excel・Wordを行き来して二度手間。見積書を作り終える頃にミスに気づく。</p>
+      </div>
     </div>
   </div>
 </section>
@@ -304,16 +391,32 @@
 <!-- BEFORE / AFTER -->
 <section class="sec">
   <div class="wrap">
-    <div class="head-c reveal"><span class="eyebrow">Before / After</span><h2>見積の流れが、こう変わる。</h2><p>あちこちに散らばった手作業が、ひとつの画面にまとまります。</p></div>
+    <div class="head-c reveal">
+      <span class="eyebrow">Before / After</span>
+      <h2>見積の流れが、こう変わる。</h2>
+      <p>あちこちに散らばった手作業が、1画面に集約されます。</p>
+    </div>
     <div class="ba-grid">
       <div class="ba-card before reveal">
-        <div class="lbl">Before</div>
-        <ul><li>Excelを開く</li><li>過去案件を探す</li><li>電卓で計算する</li><li>PDFを作る</li><li>担当者ごとに金額が変わる</li></ul>
+        <div class="lbl">今まで</div>
+        <ul>
+          <li>Excelを開き過去案件を探す</li>
+          <li>電卓で計算・メモに書き写す</li>
+          <li>Wordで見積書を清書</li>
+          <li>担当者で金額が変わる</li>
+          <li>帰社後でないと見積を出せない</li>
+        </ul>
       </div>
       <div class="ba-arrow reveal">→</div>
       <div class="ba-card after reveal">
-        <div class="lbl">After — Quotto</div>
-        <ul><li>Quottoに入力（貼る/話す）</li><li>自動計算</li><li>類似案件を確認</li><li>PDFを出力</li><li>誰が作っても同じ金額</li></ul>
+        <div class="lbl">Quottoを使うと</div>
+        <ul>
+          <li>依頼文を貼る・スマホで話す</li>
+          <li>自動で計算・類似案件も確認</li>
+          <li>ボタン1つでPDF見積書</li>
+          <li>誰が作っても同じ金額</li>
+          <li>外出先でもその場で見積を出せる</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -322,35 +425,45 @@
 <!-- SCREENS showcase -->
 <section class="sec tint" id="screens">
   <div class="wrap">
-    <div class="head-c reveal"><span class="eyebrow">Product</span><h2>“使う画面”をそのまま。</h2><p>毎日使うことを前提に設計した、シンプルな業務画面。</p></div>
+    <div class="head-c reveal">
+      <span class="eyebrow">実際の画面</span>
+      <h2>シンプルで、毎日使いやすい。</h2>
+      <p>事務員でも、ドライバーでも。パソコンが苦手な方でもすぐ使えます。</p>
+    </div>
     <div class="screens">
       <div class="shot reveal">
-        <div class="bar"><i></i><i></i><i></i></div>
-        <div class="pic" style="display:flex;flex-direction:column">
-          <div class="mini-kpis"><div><div class="v">42</div><div class="l">今月</div></div><div><div class="v">318</div><div class="l">累計</div></div><div><div class="v">¥7.9M</div><div class="l">金額</div></div></div>
-          <div class="mini-bar teal"></div><div class="mini-bar"></div><div class="mini-bar" style="width:70%"></div>
+        <div class="shot-bar"><i></i><i></i><i></i></div>
+        <div class="shot-pic">
+          <div class="s-kpis">
+            <div class="s-kpi"><div class="v">42</div><div class="l">今月</div></div>
+            <div class="s-kpi"><div class="v">318</div><div class="l">累計</div></div>
+            <div class="s-kpi"><div class="v">¥7.9M</div><div class="l">今月金額</div></div>
+          </div>
+          <div class="s-bar fill"></div>
+          <div class="s-bar" style="width:65%"></div>
+          <div class="s-bar" style="width:40%"></div>
         </div>
-        <div class="cap"><b>ダッシュボード</b><p>今日の見積業務をここから開始。</p></div>
+        <div class="shot-cap"><b>ダッシュボード</b><p>今日の仕事をここから開始。見積件数・金額を一目で確認。</p></div>
       </div>
       <div class="shot reveal">
-        <div class="bar"><i></i><i></i><i></i></div>
-        <div class="pic" style="display:flex;flex-direction:column">
-          <div class="mini-row"><span class="mini-pill">大阪市</span>→<span class="mini-pill">名古屋市</span></div>
-          <div class="mini-row"><span class="mini-pill">4t車</span><span class="mini-pill">冷蔵</span><span class="mini-pill">時間指定</span></div>
-          <div class="mini-bar"></div>
-          <div class="mini-total"><span>見積金額（税込）</span><b>¥59,000</b></div>
+        <div class="shot-bar"><i></i><i></i><i></i></div>
+        <div class="shot-pic">
+          <div class="s-row"><span class="s-pill">大阪市</span> → <span class="s-pill">名古屋市</span></div>
+          <div class="s-row"><span class="s-pill">4t車</span> <span class="s-pill">冷蔵</span> <span class="s-pill">時間指定</span></div>
+          <div class="s-bar"></div>
+          <div class="s-total"><span>見積金額（税込）</span><b>¥59,000</b></div>
         </div>
-        <div class="cap"><b>見積作成</b><p>貼る・話すだけで自動入力＆計算。</p></div>
+        <div class="shot-cap"><b>見積作成</b><p>依頼文を貼る・話すだけで自動入力。その場で計算結果が出る。</p></div>
       </div>
       <div class="shot reveal">
-        <div class="bar"><i></i><i></i><i></i></div>
-        <div class="pic" style="display:flex;flex-direction:column">
-          <div class="mini-row" style="font-weight:700;color:#41504c">車格 / 温度帯 / 最低料金 / 単価</div>
-          <div class="mini-row"><span class="mini-pill">4t</span><span class="mini-pill">冷蔵</span>28,000 / 200</div>
-          <div class="mini-row"><span class="mini-pill">10t</span><span class="mini-pill">冷凍</span>53,000 / 318</div>
-          <div class="mini-row"><span class="mini-pill">軽</span><span class="mini-pill">ドライ</span>8,000 / 90</div>
+        <div class="shot-bar"><i></i><i></i><i></i></div>
+        <div class="shot-pic">
+          <div class="s-row" style="font-weight:700;color:var(--body);font-size:9.5px">車格 / 温度帯 / 最低料金 / 距離単価</div>
+          <div class="s-row"><span class="s-tag">4t車</span><span class="s-tag">冷蔵</span><span style="font-size:9px;font-family:var(--serif-num)">28,000 / 200</span></div>
+          <div class="s-row"><span class="s-tag">10t車</span><span class="s-tag">冷凍</span><span style="font-size:9px;font-family:var(--serif-num)">53,000 / 318</span></div>
+          <div class="s-row"><span class="s-tag">軽バン</span><span class="s-tag">ドライ</span><span style="font-size:9px;font-family:var(--serif-num)">8,000 / 90</span></div>
         </div>
-        <div class="cap"><b>料金設定</b><p>自社で使う車両だけ登録。5分で設定。</p></div>
+        <div class="shot-cap"><b>料金設定</b><p>自社の車両と料金を5分で登録するだけ。あとは自動で計算。</p></div>
       </div>
     </div>
   </div>
@@ -359,60 +472,141 @@
 <!-- FEATURES -->
 <section class="sec feat" id="features">
   <div class="wrap">
-    <div class="head-c reveal"><span class="eyebrow">Features</span><h2>「貼る・話す」だけで、見積が終わる。</h2><p>運送業の運賃ルールに合わせて作った、自社専用の見積標準化システム。</p></div>
+    <div class="head-c reveal">
+      <span class="eyebrow">主な機能</span>
+      <h2>現場の仕事に合わせて<br>作った機能だけ。</h2>
+      <p>運送業の運賃ルールに特化して設計。余計な機能はありません。</p>
+    </div>
     <div class="grid3">
-      <div class="card reveal"><div class="fico">🧠</div><span class="tag">自動読み取り</span><h3>依頼文を貼るだけで自動入力</h3><p>メール本文や電話メモから、集荷地・納品地・距離・温度帯を自動で抽出。</p></div>
-      <div class="card reveal"><div class="fico">🎤</div><span class="tag">スマホ対応</span><h3>外出先でも音声でその場見積</h3><p>スマホに話しかけるだけ。電話対応中でもその場で金額を出せる。</p></div>
-      <div class="card reveal"><div class="fico">🚚</div><span class="tag">自社の料金</span><h3>御社の車両条件を再現</h3><p>4t冷蔵・10t冷凍・軽ドライなど、自社の料金ルールをそのまま登録。</p></div>
-      <div class="card reveal"><div class="fico">📚</div><span class="tag">ナレッジ</span><h3>類似案件をその場で参照</h3><p>過去の似た案件を自動表示。根拠のある見積が出せる。</p></div>
-      <div class="card reveal"><div class="fico">🧾</div><span class="tag">見積書</span><h3>PDF出力までワンクリック</h3><p>ロゴ・社印・インボイス番号入りの御社専用見積書をすぐ発行。</p></div>
-      <div class="card reveal"><div class="fico">🔒</div><span class="tag">安心</span><h3>顧客情報を外部に送らない</h3><p>社内で完結する仕組みなので、運賃・顧客情報が外に出ない。</p></div>
+      <div class="card reveal">
+        <div class="f-icon">📋</div>
+        <span class="f-tag">自動読み取り</span>
+        <h3>依頼文を貼るだけで自動入力</h3>
+        <p>メール文・電話メモをそのまま貼り付けると、集荷地・納品地・温度帯を自動抽出して入力します。</p>
+      </div>
+      <div class="card reveal">
+        <div class="f-icon">🎤</div>
+        <span class="f-tag">スマホ音声入力</span>
+        <h3>電話しながらその場で見積</h3>
+        <p>スマホに向かって話すだけで見積が完成。電話対応中でも30秒で金額を出せます。</p>
+      </div>
+      <div class="card reveal">
+        <div class="f-icon">🚛</div>
+        <span class="f-tag">自社の料金</span>
+        <h3>御社の車両・料金ルールをそのまま</h3>
+        <p>4t冷蔵・10t冷凍・軽ドライなど、自社が使う車両と料金を登録するだけ。</p>
+      </div>
+      <div class="card reveal">
+        <div class="f-icon">📚</div>
+        <span class="f-tag">過去案件参照</span>
+        <h3>似た案件を自動で表示</h3>
+        <p>過去の類似案件が自動で並びます。根拠のある見積が出せ、新人でも安心。</p>
+      </div>
+      <div class="card reveal">
+        <div class="f-icon">🧾</div>
+        <span class="f-tag">見積書PDF</span>
+        <h3>見積書をワンクリックで発行</h3>
+        <p>御社のロゴ・社印・インボイス登録番号入りの見積書をPDFで即出力。</p>
+      </div>
+      <div class="card reveal">
+        <div class="f-icon">🔒</div>
+        <span class="f-tag">社内完結</span>
+        <h3>運賃情報を社外に出さない</h3>
+        <p>クラウドへの送信なし。社内のPCで完結するため、運賃・顧客情報が外部に漏れません。</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- STEPS -->
+<!-- STEPS (dark) -->
 <section class="sec dark steps" id="steps">
   <div class="wrap">
-    <div class="head-c reveal"><span class="eyebrow">How it works</span><h2>使い方はかんたん3ステップ</h2></div>
+    <div class="head-c reveal">
+      <span class="eyebrow">How it works</span>
+      <h2>使い方は、かんたん3ステップ</h2>
+      <p>むずかしい設定や研修は不要。最短で当日から使えます。</p>
+    </div>
     <div class="grid3">
-      <div class="card reveal"><div class="num">1</div><h3>依頼を入力</h3><p>依頼文を貼る、スマホで話す、手入力でもOK。</p></div>
-      <div class="card reveal"><div class="num">2</div><h3>自動で見積</h3><p>項目が自動入力され、運賃・割増・税込まで計算。類似案件も参照。</p></div>
-      <div class="card reveal"><div class="num">3</div><h3>見積書を発行</h3><p>御社専用デザインの見積書をPDFで出力してすぐ送付。</p></div>
+      <div class="card reveal">
+        <div class="step-num">1</div>
+        <h3>依頼内容を入力する</h3>
+        <p>依頼文をそのまま貼り付け、スマホで話す、または手入力。どの方法でもOKです。</p>
+      </div>
+      <div class="card reveal">
+        <div class="step-num">2</div>
+        <h3>自動で計算・確認</h3>
+        <p>自社の料金で自動計算。加算・燃料サーチャージ・税込まで対応。類似案件も確認できます。</p>
+      </div>
+      <div class="card reveal">
+        <div class="step-num">3</div>
+        <h3>見積書を発行・送付</h3>
+        <p>御社専用デザインの見積書をPDFで出力。そのまま取引先へ送れます。</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- WHY -->
-<section class="sec why">
-  <div class="wrap" style="max-width:820px">
-    <div class="head-c reveal"><span class="eyebrow">Why Quotto</span><h2>「自社専用」だから、現場で本当に使える</h2></div>
+<!-- WHY Quotto -->
+<section class="sec">
+  <div class="wrap" style="max-width:800px">
+    <div class="head-c reveal">
+      <span class="eyebrow">Why Quotto</span>
+      <h2>「自社専用」だから、<br>現場で本当に使える。</h2>
+    </div>
     <div>
-      <div class="row reveal"><span class="ck">✓</span><div><h3>御社の料金ルールをそのまま再現</h3><p>4t冷蔵・10t冷凍など車両ごとの料金、燃料サーチャージや高速代まで設定で再現。</p></div></div>
-      <div class="row reveal"><span class="ck">✓</span><div><h3>誰が作っても同じ見積</h3><p>新人でもベテランでも同じ金額に。担当者が変わっても価格がブレない。</p></div></div>
-      <div class="row reveal"><span class="ck">✓</span><div><h3>PCでもスマホでも</h3><p>事務所はPCでじっくり、外出先はスマホで音声。同じ設定を引き継いで使える。</p></div></div>
-      <div class="row reveal"><span class="ck">✓</span><div><h3>顧客情報を外部に送らない</h3><p>社内で完結。社外秘の運賃・顧客情報が外部に出ない。</p></div></div>
+      <div class="why-row reveal">
+        <div class="why-ck">✓</div>
+        <div>
+          <h3>御社の料金ルールをそのまま再現</h3>
+          <p>4t冷蔵・10t冷凍・軽ドライなど車両ごとの料金、燃料サーチャージ・高速代・待機料も設定で再現。「うちの特殊な料金体系には合わないかも」という心配は不要です。</p>
+        </div>
+      </div>
+      <div class="why-row reveal">
+        <div class="why-ck">✓</div>
+        <div>
+          <h3>新人でもベテランと同じ見積が出せる</h3>
+          <p>料金ルールがシステムに組み込まれているため、入社1日目でも正確な見積が作れます。属人化・引き継ぎリスクをなくせます。</p>
+        </div>
+      </div>
+      <div class="why-row reveal">
+        <div class="why-ck">✓</div>
+        <div>
+          <h3>外出先でも、電話しながらでも対応できる</h3>
+          <p>スマホの音声入力でいつでも見積が出せます。「今出先なので帰社後に折り返します」がなくなります。</p>
+        </div>
+      </div>
+      <div class="why-row reveal">
+        <div class="why-ck">✓</div>
+        <div>
+          <h3>顧客情報・運賃を社外に送らない</h3>
+          <p>社内のPC・スマホのみで動作。得意先情報や運賃データがクラウドに送信されることはありません。</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- PRICING -->
-<section class="sec tint" id="price">
+<section class="sec warm" id="price">
   <div class="wrap">
-    <div class="head-c reveal"><span class="eyebrow">Pricing</span><h2>料金</h2><p>御社の規模・運賃体系に合わせてご提案。まずは無料デモ・無料相談で。</p></div>
+    <div class="head-c reveal">
+      <span class="eyebrow">Pricing</span>
+      <h2>料金</h2>
+      <p>御社の規模・車両数・料金体系に合わせてご提案します。まずは無料デモ・相談から。</p>
+    </div>
     <div class="price-card reveal">
-      <div class="p">個別お見積り<small>規模・要件に応じてご案内します</small></div>
+      <div class="p">個別お見積り<small>規模・要件に応じて丁寧にご案内します</small></div>
       <ul>
-        <li>自社専用の料金表・得意先の初期設定</li>
-        <li>御社デザインの見積書テンプレート作成</li>
+        <li>御社専用の料金表・得意先の初期設定</li>
+        <li>社名・ロゴ入りの見積書テンプレート作成</li>
         <li>PC版＋スマホ版（音声入力）</li>
         <li>導入サポート・操作レクチャー</li>
       </ul>
-      <div class="cta">
+      <div class="cta-row">
         <a class="btn btn-primary" href="#contact">無料デモを依頼する</a>
         <a class="btn btn-ghost" href="#contact">無料相談する</a>
       </div>
-      <div style="margin-top:14px;font-size:13px;color:var(--muted)">お問い合わせ・お見積りは無料です。お気軽にご相談ください。</div>
+      <div style="margin-top:14px;font-size:13px;color:var(--muted)">お問い合わせ・お見積りはすべて無料です。</div>
     </div>
   </div>
 </section>
@@ -421,11 +615,11 @@
 <section class="sec" id="contact">
   <div class="wrap">
     <div class="cta-final reveal">
-      <h2>まずは、御社の見積で試してみませんか？</h2>
-      <p>実際の依頼例で、その場で見積を作ってお見せします。ご相談・お見積りはすべて無料です。<br>お問い合わせいただいた方には、PC版のお試し版（インストール不要）もお渡しします。</p>
-      <div class="cta">
-        <a class="btn btn-white" href="mailto:お問い合わせ先メール?subject=Quottoの無料デモ・相談">無料デモを依頼する</a>
-        <a class="btn btn-lineteal" href="mailto:お問い合わせ先メール?subject=Quottoのお問い合わせ">無料相談・お問い合わせ</a>
+      <h2>まずは、御社の見積で<br>試してみませんか？</h2>
+      <p>実際の依頼例を使って、その場で見積をお見せします。<br>ご相談・デモはすべて無料。お気軽にどうぞ。<br><br>お問い合わせいただいた方には、PC版のお試し版をお渡しします。</p>
+      <div class="cta-row">
+        <a class="btn btn-white" href="mailto:お問い合わせ先メール?subject=Quottoの無料デモ・相談希望">無料デモを依頼する</a>
+        <a class="btn btn-outline-w" href="mailto:お問い合わせ先メール?subject=Quottoのお問い合わせ">お問い合わせ・ご相談</a>
       </div>
     </div>
   </div>
@@ -433,7 +627,10 @@
 
 <footer>
   <div class="wrap">
-    <a class="logo" href="#"><span class="mark">運</span><span class="wm" style="font-size:20px;color:var(--ink)">Qu<span class="o">o</span>tt<span class="o">o</span></span></a>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="logo-mark">Q</div>
+      <span class="logotype">Qu<span class="o">o</span>tt<span class="o">o</span></span>
+    </div>
     <div>お問い合わせ：（TEL・メールを記入）</div>
     <div>© 2026 Quotto — 運送見積標準化システム</div>
   </div>
@@ -443,31 +640,33 @@
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // header glass on scroll
   var hdr = document.getElementById('hdr');
-  var onScroll = function(){ hdr.classList.toggle('scrolled', window.scrollY > 8); };
-  onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
+  function onScroll(){ hdr.classList.toggle('scrolled', window.scrollY > 8); }
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
 
-  // reveal + count-up via IntersectionObserver
   var reveals = [].slice.call(document.querySelectorAll('.reveal'));
   function runCount(el){
-    var to = parseFloat(el.getAttribute('data-to')) || 0, start=null, dur=1100;
-    function tick(t){ if(start===null) start=t; var p=Math.min((t-start)/dur,1);
-      el.textContent = Math.round(to*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(tick); }
+    var to = parseFloat(el.getAttribute('data-to'))||0, start=null, dur=1000;
+    function tick(t){ if(!start) start=t; var p=Math.min((t-start)/dur,1);
+      el.textContent=Math.round(to*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(tick); }
     requestAnimationFrame(tick);
   }
-  if (reduce || !('IntersectionObserver' in window)) {
-    reveals.forEach(function(el){ el.classList.add('in'); });
-    [].slice.call(document.querySelectorAll('.count')).forEach(function(c){ c.textContent=c.getAttribute('data-to'); });
+  if(reduce||!('IntersectionObserver' in window)){
+    reveals.forEach(function(el){el.classList.add('in');});
+    [].slice.call(document.querySelectorAll('.count')).forEach(function(c){c.textContent=c.getAttribute('data-to');});
   } else {
-    var io = new IntersectionObserver(function(es){ es.forEach(function(e){
-      if(e.isIntersecting){ e.target.classList.add('in');
-        var c=e.target.querySelector? e.target.querySelector('.count'):null;
-        if(e.target.classList.contains('count')) runCount(e.target);
-        else if(c) runCount(c);
-        io.unobserve(e.target);
-      }});}, { threshold:0.2, rootMargin:'0px 0px -8% 0px' });
-    reveals.forEach(function(el){ io.observe(el); });
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          var c = e.target.querySelector ? e.target.querySelector('.count') : null;
+          if(e.target.classList.contains('count')) runCount(e.target);
+          else if(c) runCount(c);
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:0.18,rootMargin:'0px 0px -8% 0px'});
+    reveals.forEach(function(el){io.observe(el);});
   }
 })();
 </script>
