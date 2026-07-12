@@ -1324,10 +1324,31 @@ footer{padding:40px 32px;border-top:1px solid var(--line);background:var(--tint)
   } else {
     var cio = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
-        if(e.isIntersecting){ runCount(e.target); cio.unobserve(e.target); }
+        if(e.isIntersecting && !e.target.dataset.done){ e.target.dataset.done='1'; runCount(e.target); cio.unobserve(e.target); }
       });
     },{threshold:0.5});
     countEls.forEach(function(c){cio.observe(c)});
+  }
+
+  /* ── IOフォールバック（IntersectionObserverが発火しない環境向けの保険） ──
+     まれな組み込みブラウザ対策：スクロール位置から自力判定して表示・カウントを起動 */
+  if(!reduce){
+    var ioFallback = function(){
+      var vh = window.innerHeight;
+      reveals.forEach(function(el){
+        if(el.classList.contains('in')) return;
+        var r = el.getBoundingClientRect();
+        if(r.top < vh * 0.95 && r.bottom > 0) el.classList.add('in');
+      });
+      countEls.forEach(function(c){
+        if(c.dataset.done) return;
+        var r = c.getBoundingClientRect();
+        if(r.top < vh * 0.9 && r.bottom > 0){ c.dataset.done = '1'; runCount(c); }
+      });
+    };
+    window.addEventListener('scroll', ioFallback, {passive:true});
+    setTimeout(ioFallback, 1600);
+    setTimeout(ioFallback, 4000);
   }
 
   /* ── パーティクル生成（スマホでは負荷軽減のため生成しない） ── */
@@ -1434,10 +1455,21 @@ footer{padding:40px 32px;border-top:1px solid var(--line);background:var(--tint)
     if(reduce){
       showFinal(); // 動きを減らす設定では完成形を静止表示
     } else {
+      var started = false;
+      var start = function(){ if(started) return; started = true; runDemo(); };
       var dio = new IntersectionObserver(function(es){
-        es.forEach(function(e){ if(e.isIntersecting){ runDemo(); dio.unobserve(e.target); } });
+        es.forEach(function(e){ if(e.isIntersecting){ start(); dio.unobserve(e.target); } });
       }, {threshold: 0.35});
       dio.observe(win);
+      // IOが発火しない環境向けの保険：スクロール位置から自力判定して開始
+      var demoFallback = function(){
+        if(started) return;
+        var r = win.getBoundingClientRect();
+        if(r.top < window.innerHeight * 0.8 && r.bottom > 0) start();
+      };
+      window.addEventListener('scroll', demoFallback, {passive:true});
+      setTimeout(demoFallback, 1600);
+      setTimeout(demoFallback, 4000);
     }
   })();
 
