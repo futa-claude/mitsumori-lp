@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>入札速報サービス｜建築一式・解体工事の入札情報を毎朝自動でお届け（北近畿）</title>
+<meta name="description" content="役所・官公庁11機関の入札情報を毎日自動収集し、建築一式工事・解体工事だけに絞って毎朝メールでお届け。北近畿の建設会社さま向け。絞り込みは御社専用にカスタマイズ。無料お試し配信受付中。">
+<meta property="og:title" content="入札速報サービス｜建築・解体工事の入札情報を毎朝自動でお届け">
+<meta property="og:description" content="毎日約1,000件から御社に関係する案件だけを抽出して毎朝メール。無料お試し受付中。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+<style>
+  :root {
+    --deep: #0C3F37; --teal: #0E7C6B; --teal-bg: #f0f7f5; --gold: #E9B44C;
+    --ink: #1f2937; --sub: #4b5563; --line: #cbd5e1;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Meiryo", sans-serif; color: var(--ink); line-height: 1.8; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+  section { padding: 56px 0; }
+  h2 { font-size: 1.5rem; color: var(--teal); border-left: 5px solid var(--teal); padding-left: 12px; margin-bottom: 28px; }
+
+  .hero { background: linear-gradient(160deg, #0C3F37, #0E7C6B); color: #fff; padding: 64px 0 56px; }
+  .badge { display: inline-block; background: var(--gold); color: var(--deep); font-weight: bold; font-size: .85rem; padding: 4px 16px; border-radius: 999px; margin-bottom: 16px; }
+  .hero h1 { font-size: 2rem; line-height: 1.4; margin-bottom: 14px; }
+  .hero .lead { color: #d9efe9; font-size: 1.05rem; margin-bottom: 28px; }
+  .cta { display: inline-block; background: var(--gold); color: var(--deep); font-weight: bold; font-size: 1.05rem; padding: 14px 32px; border-radius: 10px; text-decoration: none; box-shadow: 0 4px 14px rgba(0,0,0,.25); }
+  .cta:hover { filter: brightness(1.05); }
+  .cta-note { font-size: .85rem; color: #bfe0d7; margin-top: 10px; }
+
+  .pain { background: #fff; }
+  .pain ul { list-style: none; }
+  .pain li { background: #fff; border: 1px solid var(--line); border-left: 5px solid #c0392b; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px; font-weight: 600; }
+
+  .how { background: var(--teal-bg); }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .step { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 20px; }
+  .step .num { display: inline-block; background: var(--teal); color: #fff; font-weight: bold; width: 30px; height: 30px; line-height: 30px; text-align: center; border-radius: 50%; margin-bottom: 10px; }
+  .step h3 { font-size: 1.05rem; margin-bottom: 8px; }
+  .step p { font-size: .92rem; color: var(--sub); }
+  @media (max-width: 640px) { .steps { grid-template-columns: 1fr; } }
+
+  .custom { background: var(--deep); color: #fff; }
+  .custom h2 { color: var(--gold); border-color: var(--gold); }
+  .custom .big { font-size: 1.2rem; font-weight: bold; margin-bottom: 14px; }
+  .custom p { color: #d9efe9; }
+  .custom .tags { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .custom .tag { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.3); border-radius: 999px; padding: 6px 16px; font-size: .9rem; }
+
+  .feat ul { list-style: none; }
+  .feat li { padding-left: 30px; position: relative; margin-bottom: 14px; }
+  .feat li::before { content: "✔"; color: var(--teal); font-weight: bold; position: absolute; left: 0; font-size: 1.1rem; }
+  .feat li b { color: var(--deep); }
+
+  .future { background: var(--teal-bg); }
+  .future .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .future .cards { grid-template-columns: 1fr; } }
+  .future .card { background: #fff; border: 1px dashed var(--teal); border-radius: 10px; padding: 20px; }
+  .future .card h3 { font-size: 1rem; color: var(--teal); margin-bottom: 8px; }
+  .future .card p { font-size: .92rem; color: var(--sub); }
+  .future .soon { font-size: .8rem; color: #fff; background: var(--teal); border-radius: 999px; padding: 2px 10px; margin-left: 8px; vertical-align: middle; }
+
+  .rep { background: #fff; }
+  .rep .box { display: flex; gap: 24px; align-items: flex-start; }
+  .rep img { width: 140px; border-radius: 10px; border: 1px solid var(--line); }
+  .rep .name { font-size: 1.15rem; font-weight: bold; }
+  .rep .role { color: var(--teal); font-weight: bold; font-size: .9rem; margin-bottom: 12px; }
+  .rep p { font-size: .95rem; }
+  .rep .hobby { margin-top: 10px; color: var(--sub); font-size: .88rem; }
+  @media (max-width: 640px) { .rep .box { flex-direction: column; align-items: center; text-align: left; } }
+
+  .trial { background: var(--teal-bg); }
+  .trial .flow { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 18px; }
+  .trial .fstep { background: #fff; border: 1.5px solid var(--teal); color: var(--deep); border-radius: 999px; padding: 8px 18px; font-weight: bold; font-size: .95rem; }
+  .trial .arrow { color: var(--teal); font-weight: bold; }
+  .trial .center { text-align: center; margin-top: 28px; }
+
+  .company { background: #fff; }
+  .company table { border-collapse: collapse; width: 100%; max-width: 560px; }
+  .company th, .company td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); font-size: .95rem; }
+  .company th { color: var(--sub); font-weight: 600; white-space: nowrap; width: 9em; }
+
+  footer { background: var(--deep); color: #9fcabf; text-align: center; padding: 24px 0; font-size: .85rem; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="badge">無料お試し配信 受付中</span>
+    <h1>建築一式・解体工事の入札情報だけを、<br>毎朝自動でメールにお届けします</h1>
+    <p class="lead">役所・官公庁11機関、毎日のべ約1,000件。その中から御社に関係する案件だけを抽出。<br>北近畿の建設会社さま向けの入札情報配信サービスです。</p>
+    <a class="cta" href="mailto:nyusatsu.soku@gmail.com?subject=無料お試し配信を希望します">無料お試しを申し込む（メールが開きます）</a>
+    <div class="cta-note">「お試し希望」の一言だけでOK。費用はかかりません。</div>
+  </div>
+</div>
+
+<section class="pain">
+  <div class="wrap">
+    <h2>こんなお悩みはありませんか</h2>
+    <ul>
+      <li>役所の入札サイトをいくつも毎日見て回るのが手間</li>
+      <li>気づいた時には締切直前。準備が間に合わない</li>
+      <li>担当者が忙しい日はチェックが抜けて、案件を見落とす</li>
+    </ul>
+  </div>
+</section>
+
+<section class="how">
+  <div class="wrap">
+    <h2>サービスの仕組み</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="num">1</span>
+        <h3>毎日2回 自動巡回</h3>
+        <p>京都府電子入札、国の調達サイト、近畿地方整備局、UR、裁判所、NEXCO西日本など11の発注機関サイトを朝・昼に巡回し、のべ約1,000件を毎日確認します。</p>
+      </div>
+      <div class="step">
+        <span class="num">2</span>
+        <h3>御社専用に絞り込み</h3>
+        <p>「建築一式・解体」かつ「御社の営業エリア」の案件だけを抽出。関係ない案件は届きません。</p>
+      </div>
+      <div class="step">
+        <span class="num">3</span>
+        <h3>毎朝メールでお届け</h3>
+        <p>開くだけで読める日報＋Excel一覧。操作や設定は一切不要です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="custom">
+  <div class="wrap">
+    <h2>絞り込みは、御社専用にカスタマイズ</h2>
+    <div class="big">「全社に同じ情報」ではありません。一社ずつ、条件を作り込みます。</div>
+    <p>対象の工種、営業エリア、除外したい地域や案件の種類まで、御社のご希望を伺って専用の絞り込み条件を設定します。導入後の変更・調整も何度でも無料です。</p>
+    <div class="tags">
+      <span class="tag">対象工種の指定</span>
+      <span class="tag">営業エリアの指定</span>
+      <span class="tag">除外条件の指定</span>
+      <span class="tag">配信後の調整 無料</span>
+    </div>
+  </div>
+</section>
+
+<section class="feat">
+  <div class="wrap">
+    <h2>特長</h2>
+    <ul>
+      <li><b>公告前の「発注見通し（予告）」も掲載</b> ― 入札の先回り準備ができます</li>
+      <li><b>締切が近い案件には「締切間近」の印</b> ― 見落とし・確認漏れを防ぎます</li>
+      <li><b>毎日の役所サイト巡回が不要に</b> ― その時間を本業に使えます</li>
+      <li><b>情報源は各発注機関の公式サイトのみ</b> ― 配信例：舞鶴市立中央図書館新築工事、明石高専 職員宿舎解体工事（発注予告）など</li>
+    </ul>
+  </div>
+</section>
+
+<section class="future">
+  <div class="wrap">
+    <h2>今後の拡張予定</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>御社の過去現場ピックアップ<span class="soon">順次提供</span></h3>
+        <p>御社の過去の施工実績を登録すると、新着案件のうち「過去にやった現場に似ている案件」を自動でピックアップしてお知らせします。</p>
+      </div>
+      <div class="card">
+        <h3>施工可能な技術者のピックアップ<span class="soon">順次提供</span></h3>
+        <p>御社の資格者・技術者を登録すると、案件ごとに「配置できそうな技術者の候補」を参考表示。入札参加の判断が速くなります。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="rep">
+  <div class="wrap">
+    <h2>代表ごあいさつ</h2>
+    <div class="box">
+      <img src="sokuho-daihyo.jpg" alt="代表 中小路風太">
+      <div>
+        <div class="name">中小路 風太（なかこうじ ふうた）</div>
+        <div class="role">入札速報サービス 代表｜京都府京都市｜27歳・二児の父</div>
+        <p>以前、京都北部の工務店で営業職として働いており、役所の入札サイトを毎日見て回る手間の大きさを肌で知りました。その経験から、入札情報を毎日自動で集めて建築一式・解体工事だけに絞ってお届けする仕組みを自分で作り、北近畿の建設会社さまを中心に個人でご提供を始めました。大きな会社ではありませんが、その分、一社ずつ丁寧に対応いたします。</p>
+        <p class="hobby">趣味はドライブ。休日は息子と遊ぶのが何よりの楽しみです。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trial">
+  <div class="wrap">
+    <h2>無料お試しの流れ</h2>
+    <div class="flow">
+      <span class="fstep">① メールで「お試し希望」とご連絡</span>
+      <span class="arrow">→</span>
+      <span class="fstep">② 翌営業日の朝から配信開始</span>
+      <span class="arrow">→</span>
+      <span class="fstep">③ 合わなければそのまま終了</span>
+    </div>
+    <p>お試しに費用は一切かかりません。契約の縛りもなく、いつでも停止できます。こちらからしつこい営業のご連絡もいたしません。</p>
+    <div class="center">
+      <a class="cta" href="mailto:nyusatsu.soku@gmail.com?subject=無料お試し配信を希望します">無料お試しを申し込む</a>
+    </div>
+  </div>
+</section>
+
+<section class="company">
+  <div class="wrap">
+    <h2>運営者情報</h2>
+    <table>
+      <tr><th>屋号</th><td>入札速報サービス</td></tr>
+      <tr><th>代表</th><td>中小路 風太</td></tr>
+      <tr><th>所在地</th><td>京都府京都市</td></tr>
+      <tr><th>メール</th><td>nyusatsu.soku@gmail.com</td></tr>
+      <tr><th>電話</th><td>090-2044-8944</td></tr>
+      <tr><th>提供地域</th><td>北近畿を中心とした京都府・兵庫県（その他地域はご相談ください）</td></tr>
+    </table>
+  </div>
+</section>
+
+<footer>© 入札速報サービス</footer>
+
+</body>
+</html>
